@@ -1,8 +1,7 @@
 {
   "name": "hbs",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Sprint 1",
   "scripts": {
     "start": "node server.js",
     "dev": "parcel src/index.hbs --no-cache",
