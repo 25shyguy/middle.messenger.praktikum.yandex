@@ -1,6 +1,8 @@
 <aside class="chat-sidebar">
-    <a class="chat-sidebar__profile-link" href="">Профиль ></a>
-    {{> searchbar}}
+    <div class="chat-sidebar__warp">
+        <a class="chat-sidebar__profile-link" href="">Профиль ></a>
+        {{> searchbar}}
+    </div>
     {{#each chats}}
     {{> user data=this }}
     {{/each}}

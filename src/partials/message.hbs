@@ -1,0 +1,18 @@
+<div class="chat-window__messgae" {{#if data.isYou}} dir="right" {{/if}} {{#if data.img}} data-img="true" {{/if}}>
+    {{#if data.text}}
+    {{ data.text }}
+    {{/if}}
+    {{#if data.img}}
+    <img src={{ data.img }}>
+    {{/if}}
+    <span class="chat-window__messgae-info">
+        {{#if data.isYou}}
+        <div class="chat-window__messgae-info__mark">
+            {{#if data.read}}
+            <div class="chat-window__messgae-info__mark-read"></div>
+            {{/if}}
+        </div>
+        {{/if}}
+        {{ data.time }}
+    </span>
+</div>
