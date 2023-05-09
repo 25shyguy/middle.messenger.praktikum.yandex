@@ -6,7 +6,12 @@
             <span class="user-details__time">{{ data.time }}</span>
         </div>
         <div class="user-details">
-            <span class="user-details__message">{{ data.message }}</span>
+            <span class="user-details__message">
+                {{#if data.fromYou}}
+                <span>Вы:</span>
+                {{/if}}
+                {{ data.message }}
+            </span>
             {{#if data.notifications.length}}
             <span class="user-details__notifications">{{ data.notifications }}</span>
             {{/if}}

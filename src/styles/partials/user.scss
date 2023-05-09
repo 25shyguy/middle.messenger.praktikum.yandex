@@ -44,6 +44,11 @@
                 text-align: start;
                 flex: 1;
                 margin-right: 5px;
+
+                span {
+                    color: $black;
+                    font-weight: 500;
+                }
             }
 
             &__notifications {
