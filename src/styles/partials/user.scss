@@ -1,0 +1,62 @@
+@import '../utils/vars.scss';
+
+.chat-sidebar__user {
+    display: flex;
+    padding: 10px 0;
+    border-top: $border;
+    margin: 2px 0;
+
+    &-img {
+        width: 47px;
+        height: 47px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-right: 10px;
+    }
+
+    &-details {
+        display: flex;
+        flex-flow: row wrap;
+        width: 100%;
+
+        .user-details {
+            width: 100%;
+            flex: 1 1 auto;
+            display: flex;
+            justify-content: space-between;
+
+            &__name {
+                font-size: $text-big;
+                color: $black;
+            }
+
+            &__time {
+                font-size: $text-xs;
+                color: $text-grey;
+            }
+
+            &__message {
+                font-size: $text-medium;
+                color: $text-grey;
+                text-align: start;
+                flex: 1;
+            }
+
+            &__notifications {
+                font-size: $text-small;
+                color: #fff;
+                background-color: $dark-blue;
+                border-radius: 50%;
+                width: 20px;
+                height: 20px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+        }
+    }
+
+    &:hover {
+        background-color: $light-blue;
+    }
+}

@@ -1,0 +1,18 @@
+textarea,
+input {
+    &:focus {
+        outline: none;
+    }
+
+    &::placeholder {
+        text-align: center;
+    }
+}
+
+a {
+    text-decoration: none;
+
+    &:active {
+        color: none;
+    }
+}

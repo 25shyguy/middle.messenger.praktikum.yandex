@@ -1,0 +1,17 @@
+@import '../utils/vars.scss';
+@import './searchbar.scss';
+@import './user.scss';
+
+.chat-sidebar {
+    text-align: end;
+    width: 310px;
+    border-right: $border;
+    height: 100vh;
+    background-color: $grey;
+    padding: 20px 10px 0 10px;
+
+    &__profile-link {
+        color: $text-grey;
+        font-size: $text-medium;
+    }
+}

@@ -1,0 +1,14 @@
+@import '../utils/vars.scss';
+
+.chat-sidebar__searchbar {
+    border: none;
+    box-sizing: border-box;
+    background-color: $light-grey;
+    width: 100%;
+    padding: 10px 5px;
+    border-radius: 5px;
+    font-size: $text-medium;
+    color: $black;
+    margin-top: 25px;
+    margin-bottom: 14px;
+}
