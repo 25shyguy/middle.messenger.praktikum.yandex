@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Sprint 1",
   "scripts": {
-    "start": "node server.js",
+    "start": "parcel build src/pages/index.hbs && node server.js",
     "dev": "parcel src/pages/index.hbs --no-cache",
     "build": "parcel build src/pages/index.hbs",
     "test": "echo \"Error: no test specified\" && exit 1"

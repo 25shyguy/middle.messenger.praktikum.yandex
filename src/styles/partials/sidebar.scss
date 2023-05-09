@@ -6,9 +6,10 @@
     text-align: end;
     flex: 0 0 310px;
     border-right: $border;
-    min-height: calc(100vh - 20px);
+    height: calc(100vh - 20px);
     background-color: $grey;
     padding-top: 20px;
+    overflow-y: auto;
 
     &__warp {
         padding: 0 10px;
