@@ -1,8 +1,9 @@
 @import './utils/normalize.scss';
 @import './utils/fonts.scss';
 
-@import 'partials/sidebar.scss';
-@import './partials/chat.scss';
+@import './partials/sidebar/sidebar.scss';
+@import './partials/chat/chat.scss';
+@import './partials/auth/authForm.scss';
 
 body {
     margin: 0;
@@ -12,5 +13,6 @@ body {
     main {
         display: flex;
         flex-flow: row nowrap;
+        height: 100vh;
     }
 }

@@ -8,12 +8,12 @@
         <div class="user-details">
             <span class="user-details__message">
                 {{#if data.fromYou}}
-                <span>Вы:</span>
+                    <span>Вы:</span>
                 {{/if}}
                 {{ data.message }}
             </span>
             {{#if data.notifications.length}}
-            <span class="user-details__notifications">{{ data.notifications }}</span>
+                <span class="user-details__notifications">{{ data.notifications }}</span>
             {{/if}}
         </div>
     </div>

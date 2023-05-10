@@ -6,10 +6,6 @@ input {
     &:focus {
         outline: none;
     }
-
-    &::placeholder {
-        text-align: center;
-    }
 }
 
 a {

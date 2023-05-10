@@ -1,0 +1,12 @@
+<form class="login-form">
+    <h3>Регистрация</h3>
+    {{> auth/authInput name="email" type="text" placeholder="Почта"}}
+    {{> auth/authInput name="login" type="text" placeholder="Логин"}}
+    {{> auth/authInput name="first_name" type="text" placeholder="Имя"}}
+    {{> auth/authInput name="second_name" type="text" placeholder="Фамилия"}}
+    {{> auth/authInput name="phone" type="text" placeholder="Телефон"}}
+    {{> auth/authInput name="password" type="password" placeholder="Пароль"}}
+    {{> auth/authInput name="password" type="password" placeholder="Пароль (Ещё раз)"}}
+    {{> submit text="Зарегистрироваться"}}
+    <a href="./index.hbs">Войти</a>
+</form>

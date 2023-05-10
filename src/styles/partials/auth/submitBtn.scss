@@ -1,0 +1,10 @@
+@import '../../utils/vars.scss';
+
+.buttton-submit {
+    color: #fff !important;
+    border-radius: 8px;
+    background-color: $dark-blue;
+    font-size: $text-big;
+    padding: 10px;
+    cursor: pointer;
+}
