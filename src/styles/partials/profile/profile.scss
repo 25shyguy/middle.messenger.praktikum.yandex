@@ -1,0 +1,62 @@
+@import '../../utils/vars.scss';
+
+@import './avatar.scss';
+@import './profileInfo.scss';
+@import './link-back.scss';
+
+$max-width: 500px;
+
+.profile-page {
+    width: 100%;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+
+    &__wrap {
+        display: flex;
+        flex-flow: column nowrap;
+        justify-content: center;
+        align-items: center;
+        padding: 10px 10px 10px 64px;
+        width: 100%;
+        margin-left: -64px;
+    }
+
+    &__name {
+        color: $black;
+        font-size: $text-xl;
+        margin-bottom: 50px;
+        font-weight: 500;
+    }
+
+    &__info-wrap {
+        display: flex;
+        flex-flow: column nowrap;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        margin-bottom: 50px;
+        max-width: $max-width;
+        .button-submit {
+            margin-top: 50px;
+            max-width: 280px;
+            width: 100%;
+        }
+    }
+
+    &__links-wrap {
+        display: flex;
+        flex-flow: column nowrap;
+        max-width: $max-width;
+        width: 100%;
+        cursor: pointer;
+        .link-button {
+            border-bottom: $border;
+            padding: 10px 0;
+            &.red {
+                color: $red;
+                border-bottom: none;
+            }
+        }
+    }
+}

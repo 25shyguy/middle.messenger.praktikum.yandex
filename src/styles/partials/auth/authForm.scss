@@ -1,3 +1,5 @@
+@import '../../utils/vars.scss';
+
 @import './authInput.scss';
 @import './submitBtn.scss';
 
@@ -6,7 +8,7 @@
     display: flex;
     flex-flow: column nowrap;
     padding: 30px;
-    box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.14);
+    box-shadow: $shadow;
     border-radius: 12px;
     width: 340px;
     align-self: center;

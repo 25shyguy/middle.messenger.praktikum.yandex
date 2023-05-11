@@ -1,0 +1,28 @@
+@import '../../utils/vars.scss';
+
+.profile-page__info {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: $border;
+    padding: 10px 0;
+    width: 100%;
+
+    &-name {
+        color: $black;
+        font-size: $text-big;
+        padding-right: 10px;
+    }
+
+    &-value {
+        color: $text-grey;
+        font-size: $text-big;
+    }
+
+    input {
+        text-align: right;
+        width: 50%;
+        &::placeholder {
+            text-align: right;
+        }
+    }
+}
