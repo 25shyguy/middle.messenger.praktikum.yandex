@@ -13,3 +13,7 @@ npm run start - запуск и сборка приложения и на пор
 npm run dev - запуск приложения на порте 1234
 npm run build - сборка приложения
 ```
+
+## Прототип приложения
+
+За основу взят прототип [Figma](https://www.figma.com/file/jF5fFFzgGOxQeB4CmKWTiE/Chat_external_link?type=design&node-id=0-1&t=wvJIBge7Q4aeajTk-0)
