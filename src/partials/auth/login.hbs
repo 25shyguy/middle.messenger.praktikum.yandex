@@ -3,6 +3,9 @@
     {{> auth/authInput name="login" type="text" placeholder="Логин" required="required"}}
     {{> auth/authInput name="password" type="password" placeholder="Пароль" required="required"}}
     {{> submit text="Войти"}}
-    <a href="./chat.hbs">Страница чата</a>
-    <a href="./registration.hbs">Нет аккаунта?</a>
+    {{> link text="Нет аккаунта?" to="./registration.hbs"}}
+    {{!-- Временные ссылки на страницы --}}
+    {{> link text="Страница чата" to="./chat.hbs"}}
+    {{> link text="404" to="./404.hbs"}}
+    {{> link text="500" to="./500.hbs"}}
 </form>

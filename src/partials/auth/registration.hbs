@@ -1,5 +1,24 @@
+{{!-- не работает ---
+inputs:
+    - name: email
+        type: text
+        placeholder: Почта
+        required: required
+    - name: email
+        type: text
+        placeholder: Почта
+        required: required
+    - name: email
+        type: text
+        placeholder: Почта
+        required: required
+--- --}}
+
 <form class="login-form">
     <h3>Регистрация</h3>
+    {{!-- {{#each inputs}}
+        {{> auth/authInput name=this.name type=this.type placeholder=this.placeholder required=this.required}}
+    {{/each}} --}}
     {{> auth/authInput name="email" type="text" placeholder="Почта" required="required"}}
     {{> auth/authInput name="login" type="text" placeholder="Логин" required="required"}}
     {{> auth/authInput name="first_name" type="text" placeholder="Имя" required="required"}}
@@ -8,5 +27,5 @@
     {{> auth/authInput name="password" type="password" placeholder="Пароль" required="required"}}
     {{> auth/authInput name="password" type="password" placeholder="Пароль_(Еще_раз)" required="required"}}
     {{> submit text="Зарегистрироваться"}}
-    <a href="./index.hbs">Войти</a>
+    {{> link text="Войти" to="./index.hbs"}}
 </form>
