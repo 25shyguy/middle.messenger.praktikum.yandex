@@ -1,7 +1,7 @@
 <form class="login-form">
     <h3>Вход</h3>
-    {{> auth/authInput name="login" type="text" placeholder="Логин"}}
-    {{> auth/authInput name="password" type="password" placeholder="Пароль"}}
+    {{> auth/authInput name="login" type="text" placeholder="Логин" required="required"}}
+    {{> auth/authInput name="password" type="password" placeholder="Пароль" required="required"}}
     {{> submit text="Войти"}}
     <a href="./chat.hbs">Страница чата</a>
     <a href="./registration.hbs">Нет аккаунта?</a>
