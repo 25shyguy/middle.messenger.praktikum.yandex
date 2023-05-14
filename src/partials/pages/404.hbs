@@ -1,16 +1,7 @@
-<!doctype html>
-<html>
-
-<head>
-    <meta charset="utf-8" />
-    <link rel="stylesheet" href="../../styles/main.scss">
-    <title>Web-chat</title>
-</head>
-
-<body>
-    <main>
-        {{> error/errorContainer errorCode="404" errorText="Не туда попали"}}
-    </main>
-</body>
-
-</html>
+{{#extend "pages/base"}}
+    {{#content "main"}}
+        <main>
+            {{> error/errorContainer errorCode="404" errorText="Не туда попали"}}
+        </main>
+    {{/content}}
+{{/extend}}

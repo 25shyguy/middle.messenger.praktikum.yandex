@@ -1,16 +1,7 @@
-<!doctype html>
-<html>
-
-<head>
-    <meta charset="utf-8" />
-    <link rel="stylesheet" href="../../styles/main.scss">
-    <title>Web-chat</title>
-</head>
-
-<body>
-    <main>
-        {{> profile/change-info}}
-    </main>
-</body>
-
-</html>
+{{#extend "pages/base"}}
+    {{#content "main"}}
+        <main>
+            {{> profile/change-info}}
+        </main>
+    {{/content}}
+{{/extend}}
