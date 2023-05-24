@@ -1,0 +1,30 @@
+@import '../../utils/vars.scss';
+
+@import './authInput.scss';
+@import './submitBtn.scss';
+
+.login-form {
+    text-align: center;
+    display: flex;
+    flex-flow: column nowrap;
+    padding: 30px;
+    box-shadow: $shadow;
+    border-radius: 12px;
+    width: 340px;
+    align-self: center;
+    margin: 0 auto;
+
+    h3 {
+        margin-bottom: 55px;
+    }
+
+    .buttton-submit {
+        margin-top: 170px;
+    }
+
+    a {
+        color: $dark-blue;
+        margin-top: 15px;
+        font-size: $text-small;
+    }
+}

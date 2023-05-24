@@ -1,0 +1,68 @@
+@import './options-dropdown.scss';
+
+.chat-section__header {
+    width: 100%;
+    border-bottom: $border;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+
+    &__user {
+        display: flex;
+        align-items: center;
+
+        img {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 10px;
+        }
+
+        span {
+            font-size: $text-big;
+            color: $black;
+            font-weight: 500;
+        }
+    }
+
+    &__options {
+        width: 25px;
+        height: 25px;
+        position: relative;
+
+        &-wrap {
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+            border-radius: 50%;
+            display: flex;
+            flex-flow: column nowrap;
+            align-items: center;
+            justify-content: center;
+            transition: $bg-transition;
+
+            &:hover {
+                background-color: $hover-color;
+
+                .chat-section__header__options-dot {
+                    background-color: $dark-blue;
+                }
+            }
+        }
+
+        &-dot {
+            background-color: $black;
+            width: 3px;
+            height: 3px;
+            border-radius: 50%;
+            margin: 1.5px;
+        }
+
+        .options-dropdown {
+            top: 50px;
+            right: 0;
+        }
+    }
+}

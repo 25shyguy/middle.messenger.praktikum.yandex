@@ -1,0 +1,21 @@
+textarea,
+input {
+    border: none;
+    resize: none;
+
+    &:focus {
+        outline: none;
+    }
+}
+
+a {
+    text-decoration: none;
+}
+
+button {
+    border: none;
+
+    &:hover {
+        color: none;
+    }
+}

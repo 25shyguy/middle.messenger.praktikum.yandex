@@ -1,0 +1,22 @@
+@import './utils/normalize.scss';
+@import './utils/fonts.scss';
+
+@import './partials/sidebar/sidebar.scss';
+@import './partials/chat/chat.scss';
+@import './partials/auth/authForm.scss';
+@import './partials/profile/profile.scss';
+@import './partials/error/errorContainer.scss';
+
+@import './partials/link.scss';
+
+body {
+    margin: 0;
+    box-sizing: border-box;
+    font-family: $font-inter;
+
+    main {
+        display: flex;
+        flex-flow: row nowrap;
+        height: 100vh;
+    }
+}

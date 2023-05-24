@@ -1,0 +1,14 @@
+<header class="chat-section__header">
+    <div class="chat-section__header__user">
+        <img src={{ img }}>
+        <span>{{ name }}</span>
+    </div>
+    <div class="chat-section__header__options">
+        <div class="chat-section__header__options-wrap">
+            <span class="chat-section__header__options-dot"></span>
+            <span class="chat-section__header__options-dot"></span>
+            <span class="chat-section__header__options-dot"></span>
+        </div>
+        {{> chat/options-dropdown show="true"}}
+    </div>
+</header>

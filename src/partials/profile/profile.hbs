@@ -1,0 +1,17 @@
+<section class="profile-page">
+    {{> profile/link-back}}
+    <div class="profile-page__wrap">
+        {{> profile/avatar edit="true"}}
+        <span class="profile-page__name">{{ name }}</span>
+        <div class="profile-page__info-wrap">
+            {{#each info}}
+                {{> profile/profileInfo data=this}}
+            {{/each}}
+        </div>
+        <div class="profile-page__links-wrap">
+            {{> link text="Изменить данные" to="./change-info.hbs"}}
+            {{> link text="Изменить пароль" to="./change-password.hbs"}}
+            {{> link text="Выйти" class="red" to="./index.hbs"}}
+        </div>
+    </div>
+</section>

@@ -2,6 +2,10 @@
 
 Web-приложение "Чат" для Y.Практикум
 
+## Домен
+
+Домен [Netlify](https://extraordinary-griffin-0c76f1.netlify.app/)
+
 ## Установка
 
 Склонируйте данный репозитроий и запустите `npm i` для установки node dependencies

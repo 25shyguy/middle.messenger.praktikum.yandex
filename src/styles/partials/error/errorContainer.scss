@@ -1,0 +1,25 @@
+@import '../../utils/vars.scss';
+
+.error-container {
+    flex: 1 1 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    &__wrap {
+        text-align: center;
+        display: flex;
+        flex-flow: column nowrap;
+        color: $black;
+        &-code {
+            font-size: $text-xxxl;
+            margin-bottom: 20px;
+        }
+        &-text {
+            font-size: $text-xxl;
+            margin-bottom: 70px;
+        }
+    }
+}

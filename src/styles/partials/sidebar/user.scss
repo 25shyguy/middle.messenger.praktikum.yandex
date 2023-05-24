@@ -1,0 +1,80 @@
+@import '../../utils/vars.scss';
+
+.chat-sidebar__user {
+    display: flex;
+    padding: 10px;
+    margin: 3px 0;
+    position: relative;
+    cursor: pointer;
+    transition: $bg-transition;
+
+    &-img {
+        width: 47px;
+        height: 47px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-right: 10px;
+    }
+
+    &-details {
+        display: flex;
+        flex-flow: row wrap;
+        width: 100%;
+
+        .user-details {
+            width: 100%;
+            flex: 1 1 auto;
+            display: flex;
+            justify-content: space-between;
+
+            &__name {
+                font-size: $text-big;
+                color: $black;
+                font-weight: 500;
+            }
+
+            &__time {
+                font-size: $text-xs;
+                color: $text-grey;
+            }
+
+            &__message {
+                font-size: $text-medium;
+                color: $text-grey;
+                text-align: start;
+                flex: 1;
+                margin-right: 5px;
+
+                span {
+                    color: $black;
+                    font-weight: 500;
+                }
+            }
+
+            &__notifications {
+                font-size: $text-small;
+                color: #fff;
+                background-color: $dark-blue;
+                border-radius: 50%;
+                width: 20px;
+                height: 20px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+        }
+    }
+
+    &::before {
+        content: "";
+        height: 2px;
+        border-top: 1px solid #eaeaea;
+        position: absolute;
+        top: -2px;
+        width: calc(100% - 20px);
+    }
+
+    &:hover {
+        background-color: $light-blue;
+    }
+}

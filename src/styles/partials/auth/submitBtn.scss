@@ -1,0 +1,14 @@
+@import '../../utils/vars.scss';
+
+.button-submit {
+    color: #fff;
+    border-radius: 8px;
+    background-color: $dark-blue;
+    font-size: $text-big;
+    padding: 10px;
+    cursor: pointer;
+    transition: $filter-transition;
+    &:hover {
+        filter: brightness(0.8);
+    }
+}
