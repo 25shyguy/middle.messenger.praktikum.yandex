@@ -1,7 +1,6 @@
-@import '../../utils/vars.scss';
-
-@import './authInput.scss';
-@import './submitBtn.scss';
+@import '../../utils/vars';
+@import './authInput';
+@import './submitBtn';
 
 .login-form {
     text-align: center;
@@ -27,4 +26,18 @@
         margin-top: 15px;
         font-size: $text-small;
     }
+
+    .input-error {
+        .login-form {
+            &__input {
+                border-bottom: 1px solid $red;
+            }
+        }
+
+        .error-message {
+            bottom: 55px !important;
+            text-align: left;
+        }
+    }
+
 }

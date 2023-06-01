@@ -1,8 +1,7 @@
-@import '../../utils/vars.scss';
-
-@import './avatar.scss';
-@import './profileInfo.scss';
-@import './link-back.scss';
+@import '../../utils/vars';
+@import './avatar';
+@import './profileInfo';
+@import './link-back';
 
 $max-width: 500px;
 
@@ -37,6 +36,7 @@ $max-width: 500px;
         width: 100%;
         margin-bottom: 50px;
         max-width: $max-width;
+
         .button-submit {
             margin-top: 50px;
             max-width: 280px;
@@ -50,9 +50,11 @@ $max-width: 500px;
         max-width: $max-width;
         width: 100%;
         cursor: pointer;
+
         .link-button {
             border-bottom: $border;
             padding: 10px 0;
+
             &.red {
                 color: $red;
                 border-bottom: none;

@@ -1,28 +1,38 @@
-@import '../../utils/vars.scss';
+@import '../../utils/vars';
 
-.profile-page__info {
-    display: flex;
-    justify-content: space-between;
-    border-bottom: $border;
-    padding: 10px 0;
-    width: 100%;
+.profile-page {
+    &__info {
+        display: flex;
+        justify-content: space-between;
+        border-bottom: $border;
+        padding: 10px 0;
+        width: 100%;
 
-    &-name {
-        color: $black;
-        font-size: $text-big;
-        padding-right: 10px;
-    }
+        &-name {
+            color: $black;
+            font-size: $text-big;
+            padding-right: 10px;
+        }
 
-    &-value {
-        color: $text-grey;
-        font-size: $text-big;
-    }
+        &-value {
+            color: $text-grey;
+            font-size: $text-big;
+        }
 
-    input {
-        text-align: right;
-        width: 50%;
-        &::placeholder {
+        label {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            font-size: $text-big;
+        }
+
+        input {
             text-align: right;
+            width: 80%;
+
+            &::placeholder {
+                text-align: right;
+            }
         }
     }
 }

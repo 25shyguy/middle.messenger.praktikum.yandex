@@ -1,7 +1,10 @@
-@import '../../utils/vars.scss';
+@import '../../utils/vars';
 
-.login-form__input {
-    border-bottom: $input-border;
-    padding: 5px 0;
-    margin-bottom: 30px;
+.login-form {
+    &__input {
+        width: 100%;
+        border-bottom: $input-border;
+        padding: 5px 0;
+        margin-bottom: 30px;
+    }
 }

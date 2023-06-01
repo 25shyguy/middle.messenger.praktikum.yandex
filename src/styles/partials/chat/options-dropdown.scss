@@ -1,4 +1,4 @@
-@import '../../utils/vars.scss';
+@import '../../utils/vars';
 
 .options-dropdown {
     position: absolute;
@@ -9,7 +9,7 @@
     padding: 25px;
     font-size: $text-medium;
     color: $black;
-    
+
     &[data-show="true"] {
         display: flex;
         flex-direction: column;
@@ -24,10 +24,12 @@
         white-space: nowrap;
         cursor: pointer;
         transition: $color-transition;
+
         &:hover {
             color: $dark-blue;
         }
     }
+
     &__delete {
         color: $red;
     }

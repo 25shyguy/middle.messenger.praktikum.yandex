@@ -1,0 +1,10 @@
+<section class="chat-section__chat-window">
+    {{#each messages}}
+        <div class="chat-section__chat-window__date">
+            {{ this.data.date }}
+        </div>
+    {{/each}}
+    {{#each message}}
+        {{{this}}}
+    {{/each}}
+</section>

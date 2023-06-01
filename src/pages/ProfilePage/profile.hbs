@@ -1,0 +1,19 @@
+<main>
+    <section class="profile-page">
+        {{{linkBack}}}
+        <div class="profile-page__wrap">
+            {{{avatar}}}
+            <span class="profile-page__name">{{ name }}</span>
+            <div class="profile-page__info-wrap">
+                {{#each profileInfo}}
+                    {{{this}}}
+                {{/each}}
+            </div>
+            <div class="profile-page__links-wrap">
+                {{{linkChangeData}}}
+                {{{linkChangePassword}}}
+                {{{linkExit}}}
+            </div>
+        </div>
+    </section>
+</main>

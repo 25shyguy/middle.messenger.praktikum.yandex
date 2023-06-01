@@ -1,0 +1,20 @@
+<div class="chat-sidebar__user">
+    <img class="chat-sidebar__user-img" src={{ img }} alt="user">
+    <div class="chat-sidebar__user-details">
+        <div class="user-details">
+            <span class="user-details__name">{{ name }}</span>
+            <span class="user-details__time">{{ time }}</span>
+        </div>
+        <div class="user-details">
+            <span class="user-details__message">
+                {{#if fromYou}}
+                    <span>Вы:</span>
+                {{/if}}
+                {{ message }}
+            </span>
+            {{#if notifications.length}}
+                <span class="user-details__notifications">{{ notifications }}</span>
+            {{/if}}
+        </div>
+    </div>
+</div>
