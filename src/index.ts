@@ -27,6 +27,9 @@ window.addEventListener("DOMContentLoaded", () => {
         case "/login":
             renderDOM(loginPage);
             break;
+        case "/chat":
+            renderDOM(chatPage);
+            break;
         case "/registration":
             renderDOM(registartionPage);
             break;
