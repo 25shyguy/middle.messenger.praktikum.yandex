@@ -201,7 +201,8 @@ export class ChangeInfoForm extends Block {
                             input.keypress(event)
                         }
                     },
-                    change: (event: InputEvent) => input.validation(event, index)
+                    change: (event: InputEvent) => input.validation(event, index),
+                    focusin: (event: InputEvent) => input.validation(event, index)
                 }
             })
         });
@@ -223,10 +224,11 @@ export class ChangeInfoForm extends Block {
                     })
 
                     if(isValid) {
-                        this.children.inputInfo.forEach((input: Input) => {
-                            // eslint-disable-next-line no-console
-                            console.log(`${input.getProp("name")}: ${input.getProp("value")}`)
-                        })
+                        const result = this.children.inputInfo.reduce((acc = {}, input: Input) => {
+                            return { ...acc, [input.getProp("name")]: input.getProp("value") }
+                        }, {})
+                        // eslint-disable-next-line no-console
+                        console.log(result);
                     }
                 }
             }

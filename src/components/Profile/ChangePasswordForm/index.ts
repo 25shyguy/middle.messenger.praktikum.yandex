@@ -30,6 +30,16 @@ export class ChangePasswordForm extends Block {
                 type: input.type,
                 label: input.label,
                 events: {
+                    focusin: (event: InputEvent) => {
+                        const value = (event.target as HTMLInputElement).value;
+                        const input = this.children.inputPassword[index];
+
+                        if(value.length === 0) {
+                            input.setProps({
+                                error: "Длинна пароля должна быть от 8 до 40 символов"
+                            });
+                        }
+                    },
                     change: (event: InputEvent) => {
                         const value = (event.target as HTMLInputElement).value;
                         const input = this.children.inputPassword[index];
@@ -84,10 +94,11 @@ export class ChangePasswordForm extends Block {
                     });
 
                     if (isValid) {
-                        this.children.inputPassword.forEach((input: Input) => {
-                            // eslint-disable-next-line no-console
-                            console.log(`${input.getProp("name")}: ${input.getProp("value")}`)
-                        })
+                        const result = this.children.inputPassword.reduce((acc = {}, input: Input) => {
+                            return { ...acc, [input.getProp("name")]: input.getProp("value") }
+                        }, {})
+                        // eslint-disable-next-line no-console
+                        console.log(result);
                     }
                 }
             }

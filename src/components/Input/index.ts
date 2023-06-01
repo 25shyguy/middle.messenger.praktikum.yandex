@@ -13,7 +13,8 @@ interface InputProps {
     events?: {
         keypress?: (event: KeyboardEvent) => void,
         change?: (event: InputEvent) => void,
-        focus?: (event: InputEvent) => void,
+        focusin?: (event: InputEvent) => void,
+        focusout?: (event: InputEvent) => void,
         blur?: (event: InputEvent) => void
     }
 }

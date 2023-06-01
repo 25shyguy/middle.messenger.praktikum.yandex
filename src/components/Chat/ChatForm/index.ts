@@ -54,10 +54,13 @@ export class ChatForm extends Block {
                     if (textarea.getValue().trim().length === 0) {
                         // eslint-disable-next-line no-console
                         console.log("Поле для сообщения не может быть пустым!");
+                        textarea.setValue("");
                         return;
                     }
+
+                    const result = { [textarea.getProp("name")]: textarea.getValue() }
                     // eslint-disable-next-line no-console
-                    console.log(`message: ${textarea.getValue() }`);
+                    console.log(result);
                     textarea.setValue("");
 
                 }

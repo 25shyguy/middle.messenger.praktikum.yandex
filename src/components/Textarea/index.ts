@@ -17,6 +17,10 @@ export class Textarea extends Block {
         super(props);
     }
 
+    public getProp(name: string) {
+        return this.props[name]
+    }
+
     public getValue() {
         return (this.element as HTMLInputElement).value
     }

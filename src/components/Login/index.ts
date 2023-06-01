@@ -55,9 +55,7 @@ export class LoginContainer extends Block {
                     const login = this.children.loginInput;
                     const password = this.children.passwordInput;
                     // eslint-disable-next-line no-console
-                    console.log(`${login.getProp("name")}: ${login.getProp("value")}`);
-                    // eslint-disable-next-line no-console
-                    console.log(`${password.getProp("name")}: ${password.getProp("value")}`);
+                    console.log({ login, password });
 
                 }
             }

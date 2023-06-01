@@ -226,6 +226,7 @@ export class RegistrationContainer extends Block {
                             input.keypress(event)
                         }
                     },
+                    focusin: (event: InputEvent) => input.validation(event, index),
                     change: (event: InputEvent) => input.validation(event, index)
                 }
             });
@@ -251,18 +252,18 @@ export class RegistrationContainer extends Block {
                                 error: "Пароли не совпадают!"
                             })
                         }
-
-                        if (input.getProp("error")) {
+                        if (input.getProp("error") || input.getProp("value") === undefined) {
                             input.setFocus();
                             isValid = false;
                         }
                     });
 
                     if (isValid) {
-                        this.children.inputs.forEach((input: Input) => {
-                            // eslint-disable-next-line no-console
-                            console.log(`${input.getProp("name")}: ${input.getProp("value")}`)
-                        })
+                        const result = this.children.inputs.reduce((acc = {}, input: Input) => {
+                            return { ...acc, [input.getProp("name")]: input.getProp("value") }
+                        }, {});
+                        // eslint-disable-next-line no-console
+                        console.log(result);
                     }
                 }
             }
