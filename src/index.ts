@@ -46,7 +46,7 @@ window.addEventListener("DOMContentLoaded", () => {
             renderDOM(page500);
             break;
         default:
-            history.pushState(null, "", "/not-found");
+            window.location.assign("/not-found");
             break;
     }
     
