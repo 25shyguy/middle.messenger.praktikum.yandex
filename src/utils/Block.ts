@@ -99,7 +99,6 @@ class Block<P extends Record<string, any> = any> {
 
   private _componentDidUpdate(oldProps: P, newProps: P) {
     if (this.componentDidUpdate(oldProps, newProps)) {
-      this._removeEvents();
       this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
     }
   }
@@ -122,6 +121,7 @@ class Block<P extends Record<string, any> = any> {
 
   private _render() {
     const fragment = this.render();
+    this._removeEvents();
 
     const newElement = fragment.firstElementChild as HTMLElement;
 
