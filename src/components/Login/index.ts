@@ -26,7 +26,7 @@ export class LoginContainer extends Block {
             events: {
                 change: (event: InputEvent) => {
                     const value = (event.target as HTMLInputElement).value;
-                    this.children.loginInput.setProps({ value })
+                    this.children.loginInput.setProps({ value });
                 }
             }
         });
@@ -40,7 +40,7 @@ export class LoginContainer extends Block {
             events: {
                 change: (event: InputEvent) => {
                     const value = (event.target as HTMLInputElement).value;
-                    this.children.passwordInput.setProps({ value })
+                    this.children.passwordInput.setProps({ value });
                 }
             }
         });
@@ -52,8 +52,8 @@ export class LoginContainer extends Block {
             events: {
                 click: (event: PointerEvent) => {
                     event.preventDefault();
-                    const login = this.children.loginInput;
-                    const password = this.children.passwordInput;
+                    const login = this.children.loginInput.getProp("value");
+                    const password = this.children.passwordInput.getProp("value");
                     // eslint-disable-next-line no-console
                     console.log({ login, password });
 
