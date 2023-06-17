@@ -3,6 +3,9 @@ import template from "./form.hbs";
 
 import { Input } from "../../Input";
 import { Button } from "../../Button";
+import userController from "../../../services/userController";
+import { withStore } from "../../../utils/Store";
+import isEqual from "../../../utils/isEqual";
 
 interface ChangeInfoFormProps {
     events?: {
@@ -10,17 +13,22 @@ interface ChangeInfoFormProps {
     }
 }
 
-export class ChangeInfoForm extends Block {
+class ChangeInfoFormBase extends Block {
     constructor(props: ChangeInfoFormProps) {
         super(props);
+        userController.getUser();
+
+    }
+
+    protected componentDidUpdate(oldProps: any, newProps: any): boolean {
+        return !isEqual(oldProps, newProps)
     }
 
     protected init(): void {
-
         const inputs = [
             { 
                 text: "Почта", 
-                placeholder: "pochta@yandex.ru", 
+                placeholder: this.props.user?.email, 
                 id: "mail-input", 
                 type: "text", 
                 name: "email", 
@@ -236,7 +244,9 @@ export class ChangeInfoForm extends Block {
     }
 
     protected render(): DocumentFragment {
-        this.init();
         return this.compile(template, this.props);
     }
 }
+
+const withUser = withStore((state) => ({ ...state.user }))
+export const ChangeInfoForm = withUser(ChangeInfoFormBase);

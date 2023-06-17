@@ -7,6 +7,9 @@ interface LinkProps {
     className: string;
     to: string;
     text?: string;
+    events?: {
+        click?: (event: PointerEvent) => void
+    } 
 }
 
 export class Link extends Block {

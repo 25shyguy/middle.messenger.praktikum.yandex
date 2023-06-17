@@ -10,6 +10,12 @@ type Options = {
     data?: any
 }
 
+type ResponseData = {
+    response: Record<string, any>
+}
+
+type HTTPMethod = (url: string, options: Options | object) => Promise<ResponseData>;
+
 function queryStringify(data: any) {
     let result = "";
     if (data) {
@@ -26,26 +32,30 @@ function queryStringify(data: any) {
 }
 
 export class HTTPTransport {
-    get = (url: string, options: Options) => {
-        return this.request(url, { ...options, method: METHODS.GET });
+    baseURL: string
+    constructor(baseURL: string) {
+        this.baseURL = `https://ya-praktikum.tech${baseURL}`;
+    }
+    get: HTTPMethod = (url, options = {}) => {
+        return this.request(url, { data: options, method: METHODS.GET });
     };
 
-    put = (url: string, options: Options) => {
-        return this.request(url, { ...options, method: METHODS.PUT });
+    put: HTTPMethod = (url, options = {}) => {
+        return this.request(url, { data: options, method: METHODS.PUT });
     };
 
-    post = (url: string, options: Options) => {
-        return this.request(url, { ...options, method: METHODS.POST });
+    post: HTTPMethod = (url, options = {}) => {
+        return this.request(url, { data: options, method: METHODS.POST });
     };
 
-    delete = (url: string, options: Options) => {
-        return this.request(url, { ...options, method: METHODS.DELETE });
+    delete: HTTPMethod = (url, options) => {
+        return this.request(url, { data: options, method: METHODS.DELETE });
     };
 
-    request = (url: string, options: Options) => {
+    request = (url: string, options: Options): Promise<ResponseData> => {
         return new Promise((resolve, reject) => {
             const xhr = new XMLHttpRequest();
-            const _url = `${url}${queryStringify(options.data)}`;
+            const _url = `${this.baseURL}${url}`;
 
             xhr.open(options.method, _url);
 
@@ -64,6 +74,7 @@ export class HTTPTransport {
             xhr.ontimeout = () => reject({ reason: "Timeout" });
 
             xhr.withCredentials = true;
+            xhr.setRequestHeader("Content-Type", "application/json")
             xhr.responseType = "json";
 
             if (options.method === METHODS.GET || !options.data) {

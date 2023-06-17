@@ -4,7 +4,8 @@ import template from "./registration.hbs";
 import { Button } from "../../components/Button";
 import { Input } from "../../components/Input";
 import { Link } from "../../components/Link";
-
+// import { AuthAPI } from "../../api/authAPI";
+// const authAPI = new AuthAPI();
 interface RegistrationContainerProps {
     events?: {
         submit: (event: SubmitEvent) => void
@@ -262,8 +263,7 @@ export class RegistrationContainer extends Block {
                         const result = this.children.inputs.reduce((acc = {}, input: Input) => {
                             return { ...acc, [input.getProp("name")]: input.getProp("value") }
                         }, {});
-                        // eslint-disable-next-line no-console
-                        console.log(result);
+                        // authAPI.create(result);
                     }
                 }
             }

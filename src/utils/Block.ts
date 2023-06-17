@@ -12,10 +12,16 @@ class Block<P extends Record<string, any> = any> {
 
   public id = nanoid(6);
   protected props: P;
-  public children: Record<string, any>;
+  public children: Record<string, Block>;
   private eventBus: () => EventBus;
   private _element: HTMLElement | null = null;
 
+  /** JSDoc
+   * @param {string} tagName
+   * @param {Object} props
+   *
+   * @returns {void}
+   */
   constructor(propsWithChildren: P) {
     const eventBus = new EventBus();
 
@@ -31,9 +37,9 @@ class Block<P extends Record<string, any> = any> {
     eventBus.emit(Block.EVENTS.INIT);
   }
 
-  _getChildrenAndProps(childrenAndProps: P): { props: P, children: Record<string, Block | Block[]> } {
+  _getChildrenAndProps(childrenAndProps: P): { props: P, children: Record<string, Block> } {
     const props: Record<string, unknown> = {};
-    const children: Record<string, Block | Block[]> = {};
+    const children: Record<string, Block> = {};
 
     Object.entries(childrenAndProps).forEach(([key, value]) => {
       if (value instanceof Block) {
@@ -51,14 +57,6 @@ class Block<P extends Record<string, any> = any> {
 
     Object.keys(events).forEach(eventName => {
       this._element?.addEventListener(eventName, events[eventName]);
-    });
-  }
-
-  _removeEvents() {
-    const { events = {} } = this.props as P & { events: Record<string, () => void> };
-
-    Object.keys(events).forEach(eventName => {
-      this._element?.removeEventListener(eventName, events[eventName]);
     });
   }
 
@@ -88,13 +86,7 @@ class Block<P extends Record<string, any> = any> {
   public dispatchComponentDidMount() {
     this.eventBus().emit(Block.EVENTS.FLOW_CDM);
 
-    Object.values(this.children).forEach(child => {
-      if (Array.isArray(child)) {
-        child.forEach(ch => ch.dispatchComponentDidMount());
-      } else {
-        child.dispatchComponentDidMount();
-      }
-    });
+    Object.values(this.children).forEach(child => child.dispatchComponentDidMount());
   }
 
   private _componentDidUpdate(oldProps: P, newProps: P) {
@@ -107,7 +99,7 @@ class Block<P extends Record<string, any> = any> {
     return true;
   }
 
-  setProps = (nextProps: Partial<P>) => {
+  setProps = (nextProps: P) => {
     if (!nextProps) {
       return;
     }
@@ -121,7 +113,6 @@ class Block<P extends Record<string, any> = any> {
 
   private _render() {
     const fragment = this.render();
-    this._removeEvents();
 
     const newElement = fragment.firstElementChild as HTMLElement;
 
@@ -138,13 +129,7 @@ class Block<P extends Record<string, any> = any> {
     const contextAndStubs = { ...context };
 
     Object.entries(this.children).forEach(([name, component]) => {
-      if (Array.isArray(component)) {
-        contextAndStubs[name] = component.map((component) => {
-          return `<div data-id="${component.id}"></div>`
-        })
-      } else {
-        contextAndStubs[name] = `<div data-id="${component.id}"></div>`;
-      }
+      contextAndStubs[name] = `<div data-id="${component.id}"></div>`;
     });
 
     const html = template(contextAndStubs);
@@ -153,23 +138,16 @@ class Block<P extends Record<string, any> = any> {
 
     temp.innerHTML = html;
 
-    const replaceStubToComponent = (component: Block) => {
+    Object.entries(this.children).forEach(([_, component]) => {
       const stub = temp.content.querySelector(`[data-id="${component.id}"]`);
+
       if (!stub) {
         return;
       }
-      component.getContent()?.append(...Array.from(stub.childNodes));
-      stub.replaceWith(component.getContent()!);
-    }
 
-    Object.entries(this.children).forEach(([name, component]) => {
-      if (Array.isArray(component)) {
-        component.forEach((component) => {
-          replaceStubToComponent(component)
-        })
-      } else {
-        replaceStubToComponent(component)
-      }
+      component.getContent()?.append(...Array.from(stub.childNodes));
+
+      stub.replaceWith(component.getContent()!);
     });
 
     return temp.content;
@@ -194,7 +172,9 @@ class Block<P extends Record<string, any> = any> {
       },
       set(target, prop: string, value) {
         const oldTarget = { ...target }
+
         target[prop as keyof P] = value;
+
         self.eventBus().emit(Block.EVENTS.FLOW_CDU, oldTarget, target);
         return true;
       },

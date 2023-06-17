@@ -5,20 +5,36 @@ import { ProfileChangePasswordPage } from "./pages/ProfileChangePasswordPage";
 import { ProfilePageInfo } from "./pages/ProfileInfoPage";
 import { ProfilePage } from "./pages/ProfilePage";
 import { RegistrationPage } from "./pages/RegistrationPage";
+import UserController from "./services/userController";
+import { AppState, defaultState } from "./store";
 import renderDOM from "./utils/renderDOM";
+import store, { StoreEvents } from "./utils/Store";
 
-window.addEventListener("DOMContentLoaded", () => {
+// declare global {
+//     interface Window {
+//         store: Store<AppState>
+//     }
+// }
+
+window.addEventListener("DOMContentLoaded", async () => {
+    UserController.getUser();
+    store.on(StoreEvents.Updated, (nextState) => {
+        console.log(nextState);
+    });
+
     const loginPage = new LoginPage();
     const registartionPage = new RegistrationPage();
 
     const chatPage = new ChatPage();
 
-    const profilePage = new ProfilePage({ name: "Ivan" });
+    const profilePage = new ProfilePage();
     const profilePageInfo = new ProfilePageInfo();
     const profileChangePassword = new ProfileChangePasswordPage();
 
     const page404 = new ErrorPage({ errorCode: "404", errorText: "Не туда попали" });
     const page500 = new ErrorPage({ errorCode: "500", errorText: "Мы уже фиксим" })
+
+    // await UserController.getUser()
 
     switch (window.location.pathname) {
         case "/":

@@ -4,6 +4,9 @@ import template from "./login.hbs";
 import { Button } from "../../components/Button";
 import { Input } from "../../components/Input";
 import { Link } from "../../components/Link";
+import UserController from "../../services/userController";
+
+// import { login as loginService } from "../../services/auth";
 
 interface LoginContainerProps {
     events?: {
@@ -54,9 +57,7 @@ export class LoginContainer extends Block {
                     event.preventDefault();
                     const login = this.children.loginInput.getProp("value");
                     const password = this.children.passwordInput.getProp("value");
-                    // eslint-disable-next-line no-console
-                    console.log({ login, password });
-
+                    UserController.setUser({ login, password })
                 }
             }
         });
