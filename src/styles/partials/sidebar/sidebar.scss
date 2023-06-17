@@ -1,6 +1,6 @@
-@import '../../utils/vars.scss';
-@import './searchbar.scss';
-@import './user.scss';
+@import '../../utils/vars';
+@import './searchbar';
+@import './user';
 
 .chat-sidebar {
     text-align: end;

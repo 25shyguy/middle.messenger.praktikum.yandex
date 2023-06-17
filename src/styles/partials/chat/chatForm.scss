@@ -1,55 +1,63 @@
-.chat-section__form {
-    display: flex;
-    flex-flow: row nowrap;
-    border-top: $border;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 0;
-
-    .chat-attachments {
-        position: relative;
-        flex: 0 1 28px;
-        cursor: pointer;
-        filter: grayscale(1);
-        transition: $filter-transition;
-        .options-dropdown {
-            bottom: 50px;
-            left: 0;
-        }
-        &:hover {
-            filter: grayscale(0);
-        }
-    }
-
-    .chat-textarea {
-        background-color: $light-grey;
-        border-radius: 30px;
-        flex: 0 1 100%;
-        margin: 0 10px;
-        text-align: start;
-        height: 24px;
-        padding: 8px 10px 0;
-
-        &::placeholder {
-            text-align: left;
-        }
-    }
-
-    .chat-send-message {
-        width: 28px;
-        height: 28px;
-        flex: 0 1 28px;
-        border-radius: 50%;
-        background-color: $dark-blue;
-        align-items: center;
+.chat-section {
+    &__form {
         display: flex;
-        justify-content: center;
-        cursor: pointer;
+        flex-flow: row nowrap;
+        border-top: $border;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 0;
 
-        img {
-            filter: invert(1);
-            width: 20px;
+        .chat-attachments {
+            position: relative;
+            flex: 0 1 28px;
+            cursor: pointer;
+            filter: grayscale(1);
+            transition: $filter-transition;
+
+            button {
+                background-color: transparent;
+                cursor: pointer;
+            }
+
+            .options-dropdown {
+                bottom: 50px;
+                left: 0;
+            }
+
+            &:hover {
+                filter: grayscale(0);
+            }
+        }
+
+        .chat-textarea {
+            background-color: $light-grey;
+            border-radius: 30px;
+            flex: 0 1 100%;
+            margin: 0 10px;
+            text-align: start;
+            height: 24px;
+            padding: 8px 10px 0;
+
+            &::placeholder {
+                text-align: left;
+            }
+        }
+
+        .chat-send-message {
+            width: 28px;
+            height: 28px;
+            flex: 0 1 28px;
+            border-radius: 50%;
+            background-color: $dark-blue;
+            align-items: center;
+            display: flex;
+            justify-content: center;
+            cursor: pointer;
+
+            img {
+                filter: invert(1);
+                width: 20px;
+            }
         }
     }
-
 }

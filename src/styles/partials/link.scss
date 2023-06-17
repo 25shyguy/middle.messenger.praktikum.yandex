@@ -1,9 +1,10 @@
-@import '../utils/vars.scss';
+@import '../utils/vars';
 
 .link-button {
     font-size: $text-big;
     color: $dark-blue;
     transition: $filter-transition;
+
     &:hover {
         filter: brightness(0.8);
     }

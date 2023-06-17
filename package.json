@@ -1,23 +1,34 @@
 {
-  "name": "hbs",
+  "name": "chat",
   "version": "1.0.0",
-  "description": "Sprint 1",
+  "description": "Sprint 2",
   "scripts": {
-    "start": "parcel build src/partials/pages/index.hbs && node server.js",
-    "dev": "parcel src/partials/pages/index.hbs --no-cache",
-    "build": "parcel build src/partials/pages/index.hbs"
+    "start": "parcel build src/index.html && node server.js",
+    "dev": "parcel ./src/index.html",
+    "build": "parcel build src/index.html",
+    "lint": "eslint ./src --fix"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@anikin/parcel-transformer-handlebars": "^1.0.9",
-    "parcel": "^2.8.3"
+    "@anikin/parcel-transformer-handlebars-precompile": "^1.0.1",
+    "@parcel/transformer-sass": "^2.8.3",
+    "@typescript-eslint/eslint-plugin": "^5.59.8",
+    "@typescript-eslint/parser": "^5.59.8",
+    "eslint": "^8.41.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "parcel": "^2.8.3",
+    "parcel-plugin-handlebars": "^0.4.4",
+    "stylelint": "^15.6.2",
+    "stylelint-config-standard": "^33.0.0",
+    "stylelint-config-standard-scss": "^9.0.0",
+    "typescript": "^5.0.4"
   },
   "dependencies": {
-    "@parcel/transformer-sass": "^2.8.3",
     "express": "^4.18.2",
-    "parcel-plugin-handlebars": "^0.4.4",
+    "handlebars": "^4.7.7",
+    "nanoid": "^4.0.2",
     "sass": "^1.62.1"
   }
 }
