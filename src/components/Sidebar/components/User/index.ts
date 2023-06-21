@@ -2,12 +2,12 @@ import Block from "../../../../utils/Block";
 import template from "./user.hbs";
 
 interface UserChatsProps {
-    img: string;
-    name: string;
-    time: string;
-    fromYou: boolean;
-    message: string;
-    notifications: string;
+    img?: string | null;
+    name?: string;
+    time?: string;
+    fromYou?: boolean;
+    message?: string | null;
+    notifications?: number;
     events: {
         click: (event: PointerEvent) => void
     }

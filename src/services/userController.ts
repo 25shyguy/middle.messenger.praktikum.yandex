@@ -1,42 +1,75 @@
-import userAPI from "../api/userAPI";
-import { AppState } from "../store";
-import store, { Dispatch } from "../utils/Store";
-
-type LoginPayload = {
-    login: string;
-    password: string;
-}
+import authAPI, { LoginBody, RegisterPayload } from "../api/authAPI";
+import userAPI, { PasswordBody, ProfileBody, SearchPayload } from "../api/userAPI";
+import store from "../utils/Store";
 
 class UserController {
-    // static getUser() {
-    //     throw new Error("Method not implemented.");
-    // }
     public async getUser() {
-        const data = await userAPI.user();
+        const data = await authAPI.user();
         const { response } = data;
-        const oldState = { ...store.getState() };
         store.set("user", response);
+        return response;
     }
 
-    public async setUser(payload: LoginPayload) {
-        const data = await userAPI.login(payload);
+    public async register(payload: RegisterPayload) {
+        const data = await authAPI.signup(payload);
         const { response } = data;
+        if(response?.reason) {
+            return response
+        }
+        await this.getUser()
+        return response;
+    }
+
+    public async setUser(payload: LoginBody) {
+        const data = await authAPI.login(payload);
+        const { response } = data;
+        if (response?.reason) {
+            return response
+        }
         store.set("user", response);
+        return response;
     }
 
     public logout() {
-        userAPI.logout();
+        authAPI.logout();
+        store.set("user", {});
+    }
+
+    public async changePassword(payload: PasswordBody) {
+        const data = await userAPI.password(payload);
+        const { response } = data;
+        return response;
+
+    }
+
+    public async changeProfile(payload: ProfileBody) {
+        const data = await userAPI.profile(payload);
+        const { response } = data;
+        if (response?.reason) {
+            return response
+        }
+        this.getUser();
+        return response;
+    }
+
+    public async changeAvatar(payload: FormData) {
+        const data = await userAPI.avatar(payload);
+        const { response } = data;
+        if(response?.reason || data.status > 200) {
+            return data
+        }
+        store.set("user", response);
+        return response
+    }
+
+    public async findUser(payload: SearchPayload) {
+        const data = await userAPI.search(payload);
+        const { response } = data;
+        if (response?.reason || data.status > 200) {
+            return data
+        }
+        return response
     }
 }
 
 export default new UserController();
-
-// export const UserController = async (
-//     state: AppState,
-//     action: LoginPayload
-// ) => {
-//     const response = await userAPI.login(action);
-//     console.log(response);
-//     const responseUser =
-//     console.log(responseUser);
-// }

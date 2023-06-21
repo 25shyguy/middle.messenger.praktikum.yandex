@@ -5,16 +5,18 @@ import { Button } from "../../components/Button";
 import { Input } from "../../components/Input";
 import { Link } from "../../components/Link";
 import UserController from "../../services/userController";
+import { withRouter } from "../../HOC/withRoutes";
 
 // import { login as loginService } from "../../services/auth";
 
 interface LoginContainerProps {
+    reason?: null
     events?: {
         submit: (event: SubmitEvent) => void
     }
 }
 
-export class LoginContainer extends Block {
+class LoginContainerBase extends Block {
     constructor(props: LoginContainerProps) {
         super(props);
     }
@@ -53,19 +55,30 @@ export class LoginContainer extends Block {
             type: "submit",
             text: "Войти",
             events: {
-                click: (event: PointerEvent) => {
+                click: async (event: PointerEvent) => {
                     event.preventDefault();
                     const login = this.children.loginInput.getProp("value");
                     const password = this.children.passwordInput.getProp("value");
-                    UserController.setUser({ login, password })
+                    const user = await UserController.setUser({ login, password });
+                    if(user?.reason) {
+                        this.setProps({
+                            reason: user.reason
+                        })
+                        return;
+                    }
+                    this.props.router.go("/chat");
                 }
             }
         });
 
         this.children.registartionLink = new Link({
             className: "link-button",
-            to: "/registration",
-            text: "Нет аккаунта?"
+            text: "Нет аккаунта?",
+            events: {
+                click: () => {
+                    this.props.router.go("/registration")
+                }
+            }
         });
     }
 
@@ -73,3 +86,5 @@ export class LoginContainer extends Block {
         return this.compile(template, this.props);
     }
 }
+
+export const LoginContainer = withRouter(LoginContainerBase);

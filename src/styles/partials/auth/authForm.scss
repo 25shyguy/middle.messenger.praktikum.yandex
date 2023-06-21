@@ -13,15 +13,21 @@
     align-self: center;
     margin: 0 auto;
 
+    &__error {
+        font-size: $text-small;
+        margin-bottom: 15px;
+        color: $red;
+    }
+
     h3 {
-        margin-bottom: 55px;
+        margin-bottom: 40px;
     }
 
     .buttton-submit {
         margin-top: 170px;
     }
 
-    a {
+    .link-button {
         color: $dark-blue;
         margin-top: 15px;
         font-size: $text-small;

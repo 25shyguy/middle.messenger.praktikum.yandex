@@ -2,8 +2,9 @@ import Block from "../../utils/Block";
 import template from "./login.hbs";
 
 import { LoginContainer } from "../../components/Login";
+import { withRouter } from "../../HOC/withRoutes";
 
-export class LoginPage extends Block {
+class LoginPageBase extends Block {
     constructor(props = {}) {
         super(props);
     }
@@ -16,3 +17,5 @@ export class LoginPage extends Block {
         return this.compile(template, this.props);
     }
 }
+
+export const LoginPage = withRouter(LoginPageBase)

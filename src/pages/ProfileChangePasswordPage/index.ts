@@ -6,8 +6,9 @@ import arrow from "../../images/arrow.svg";
 import { Link } from "../../components/Link";
 import { Avatar } from "../../components/Profile/Avatar";
 import { ChangePasswordForm } from "../../components/Profile/ChangePasswordForm";
+import { withRouter } from "../../HOC/withRoutes";
 
-export class ProfileChangePasswordPage extends Block {
+class ProfileChangePassword extends Block {
     constructor(props = {}) {
         super(props);
     }
@@ -17,7 +18,11 @@ export class ProfileChangePasswordPage extends Block {
             img: arrow as string,
             alt: "Назад",
             className: "profile-page__back-link",
-            to: "/chat"
+            events: {
+                click: (event: PointerEvent) => {
+                    this.props.router.go("/profile")
+                }
+            }
         });
 
         this.children.avatar = new Avatar({
@@ -31,3 +36,5 @@ export class ProfileChangePasswordPage extends Block {
         return this.compile(template, this.props);
     }
 }
+
+export const ProfileChangePasswordPage = withRouter(ProfileChangePassword)

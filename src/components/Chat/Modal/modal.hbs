@@ -1,0 +1,27 @@
+<div class="modal" data-show="{{ show }}">
+    <form id="modal_form" class="modal-form-chat">
+        {{{closeButton}}}
+        {{!-- {{{closeButton}}} --}}
+        <h3>{{text}}</h3>
+        {{{input}}}
+        <div class="modal-users_warp">
+            {{#each foundUsers}}
+            {{{this}}}
+            {{/each}}
+        </div>
+        {{#if chosenUsers}}
+        <div class="modal-chosen-users">
+            <h5>Выбранные пользователи</h5>
+            {{#each chosenUsers}}
+            {{{this}}}
+            {{/each}}
+        </div>
+        {{/if}}
+        {{{buttonSubmit}}}
+        {{#if message}}
+        <span class="modal_form-message {{message.type}}">
+            {{{message.value}}}
+        </span>
+        {{/if}}
+    </form>
+</div>

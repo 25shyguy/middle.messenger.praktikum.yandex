@@ -3,39 +3,31 @@ import template from "./avatar.hbs";
 
 import noImage from "../../../images/no-image.svg";
 import userController from "../../../services/userController";
-import { withStore } from "../../../utils/Store";
 
 interface AvatarProps {
     img?: string;
     alt?: string;
     edit: string;
     style?: string;
+    events?: {
+        click: (event: PointerEvent) => void
+    }
 }
 
-class AvatarBase extends Block {
+export class Avatar extends Block {
     constructor(props: AvatarProps) {
         super(props)
     }
 
     protected init(): void {
         userController.getUser();
-        if(!this.props?.user?.avatar) {
-            this.setProps({
-                img: noImage as string,
-                style: "width: 50%;"
-            })
-        } else {
-            this.setProps({
-                img: this.props.user.avatar,
-            })
-        }
+        this.setProps({
+            img: this.props.img !== null ? this.props.img : noImage,
+            style: this.props.img !== null ? "" : "width: 50%;"
+        })
     }
 
     protected render(): DocumentFragment {
         return this.compile(template, this.props);
     }
 }
-
-const withUser = withStore((state) => ({ ...state }))
-
-export const Avatar = withUser(AvatarBase);

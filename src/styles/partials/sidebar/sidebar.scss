@@ -13,6 +13,10 @@
 
     &__warp {
         padding: 0 10px;
+        margin-bottom: 14px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
     }
 
     &__profile-link {

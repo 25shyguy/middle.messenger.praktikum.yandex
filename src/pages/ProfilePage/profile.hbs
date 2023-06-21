@@ -3,14 +3,15 @@
         {{{linkBack}}}
         <div class="profile-page__wrap">
             {{{avatar}}}
-            <span class="profile-page__name">{{ user.login }}</span>
+            <span class="profile-page__name">{{login}}</span>
             <div class="profile-page__info-wrap">
-                {{{profileName}}}
+                {{{profileEmail}}}
+                {{{ProfileLogin}}}
+                {{{ProfileName}}}
+                {{{ProfileSecondName}}}
+                {{{ProfileDisplayName}}}
+                {{{ProfilePhone}}}
             </div>
-            {{#each profileInfo}}
-
-            {{{this}}}
-            {{/each}}
             <div class="profile-page__links-wrap">
                 {{{linkChangeData}}}
                 {{{linkChangePassword}}}
@@ -18,4 +19,5 @@
             </div>
         </div>
     </section>
+    {{{modal}}}
 </main>

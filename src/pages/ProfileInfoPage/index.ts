@@ -5,8 +5,9 @@ import arrow from "../../images/arrow.svg";
 import { Link } from "../../components/Link";
 import { Avatar } from "../../components/Profile/Avatar";
 import { ChangeInfoForm } from "../../components/Profile/ChangeInfo";
+import { withRouter } from "../../HOC/withRoutes";
 
-export class ProfilePageInfo extends Block {
+class ProfilePageInfoBase extends Block {
     constructor(props = {}) {
         super(props)
     }
@@ -16,7 +17,11 @@ export class ProfilePageInfo extends Block {
             img: arrow as string,
             alt: "Назад",
             className: "profile-page__back-link",
-            to: "/chat"
+            events: {
+                click: (event: PointerEvent) => {
+                    this.props.router.go("/profile")
+                }
+            }
         });
 
         this.children.avatar = new Avatar({
@@ -30,3 +35,5 @@ export class ProfilePageInfo extends Block {
         return this.compile(template, this.props);
     }
 }
+
+export const ProfilePageInfo = withRouter(ProfilePageInfoBase)

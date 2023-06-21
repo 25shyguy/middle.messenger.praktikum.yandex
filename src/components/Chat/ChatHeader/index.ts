@@ -4,10 +4,13 @@ import template from "./chatHeader.hbs";
 
 import image from "../../../images/options.svg";
 import noImage from "../../../images/no-image.svg";
+import { Modal } from "../../../pages/ChatPage";
 
 interface ChatHeaderProps {
     img?: string;
     name: string;
+    setModal: (modal: Modal) => void;
+    deleteChat: () => void;
 }
 
 export class ChatHeader extends Block {
@@ -23,12 +26,9 @@ export class ChatHeader extends Block {
         }
 
         const options = [
-            // eslint-disable-next-line no-console
-            { text: "Добавить пользователя", className: "", click: (event: PointerEvent) => { console.log("Dropdown: ", event) } },
-            // eslint-disable-next-line no-console
-            { text: "Удалить пользователя", className: "", click: (event: PointerEvent) => { console.log("Dropdown: ", event) } },
-            // eslint-disable-next-line no-console
-            { text: "Удалить чат", className: "options-dropdown__delete", click: (event: PointerEvent) => { console.log("Dropdown: ", event) } }
+            { text: "Добавить пользователя", className: "", click: () => this.props.setModal({ type: "add", show: true }) },
+            { text: "Удалить пользователя", className: "", click: () => this.props.setModal({ type: "delete", show: true }) },
+            { text: "Удалить чат", className: "options-dropdown__delete", click: () => this.props.deleteChat() }
         ];
 
         this.children.dropdown = new Dropdown({

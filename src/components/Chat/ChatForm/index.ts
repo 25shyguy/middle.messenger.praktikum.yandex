@@ -7,8 +7,10 @@ import { Textarea } from "../../Textarea";
 
 import submitButtonImage from "../../../images/arrow.svg";
 import attachmentButtonImage from "../../../images/attchment.svg";
+import { MessageController } from "../../../services/MessageController";
 
 interface ChatFormProps {
+    messageController: MessageController | null
     events?: {
         submit: (event: SubmitEvent) => void
     }
@@ -58,9 +60,7 @@ export class ChatForm extends Block {
                         return;
                     }
 
-                    const result = { [textarea.getProp("name")]: textarea.getValue() }
-                    // eslint-disable-next-line no-console
-                    console.log(result);
+                    this.props.messageController.send(textarea.getValue(), "message");
                     textarea.setValue("");
 
                 }

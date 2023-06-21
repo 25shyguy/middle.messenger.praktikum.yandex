@@ -10,6 +10,7 @@ interface InputProps {
     value?: string;
     required?: string;
     error?: string | null;
+    accept?: string;
     events?: {
         keypress?: (event: KeyboardEvent) => void,
         change?: (event: InputEvent) => void,

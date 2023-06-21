@@ -3,8 +3,8 @@ import template from "./message.hbs";
 
 type message = {
     text?: string | null;
-    isYou: boolean;
-    time: string;
+    isYou?: boolean;
+    time?: string;
     read?: boolean | null;
     img?: string | null;
 }

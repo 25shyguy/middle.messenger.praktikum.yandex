@@ -1,9 +1,10 @@
 <aside class="chat-sidebar">
     <div class="chat-sidebar__warp">
+        {{{createButton}}}
         <a class="chat-sidebar__profile-link" href="/profile">Профиль ></a>
-        {{{searchbar}}}
+        {{!-- {{{searchbar}}} --}}
     </div>
     {{#each userChat}}
-        {{{this}}}
+    {{{this}}}
     {{/each}}
 </aside>

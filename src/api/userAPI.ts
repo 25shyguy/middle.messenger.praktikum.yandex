@@ -1,49 +1,46 @@
 import { HTTPTransport } from "../utils/HTTPTransport";
 
-const API = new HTTPTransport("/api/v2/auth");
+const API = new HTTPTransport("/api/v2/user");
 
-type UserData = {
-    id: string,
-    first_name: string,
-    second_name: string,
-    display_name: string | null,
-    login: string,
-    email: string,
-    phone: string,
-    avatar: string | null
+export interface PasswordBody {
+    oldPassword: string;
+    newPassword: string;
 }
 
-interface RegisterPayload {
+export interface ProfileBody {
     first_name: string,
     second_name: string,
+    display_name: string,
     login: string,
     email: string,
-    phone: string,
-    password: string,
+    phone: string
 }
 
-interface LoginBody {
-    login: string,
-    password: string,
+export interface SearchPayload {
+    login: string
+}
+
+export interface AvatarPayload {
+    avatar: string
 }
 
 class UserAPI {
-    public login(payload: LoginBody) {
-        return API.post("/signin", payload)
+    public password(payload: PasswordBody) {
+        return API.put("/password", { data: payload });
     }
-
-    public user() {
-        return API.get("/user", {})
-
+    
+    public profile(payload: ProfileBody) {
+        return API.put("/profile", { data: payload });
     }
-
-    public logout() {
-        return API.post("/logout", {})
+    
+    public avatar(payload: FormData) {
+        return API.put("/profile/avatar", { data: payload, contentType: "multipart/form-data" });
     }
-
-    public signup(payload: RegisterPayload) {
-        return API.post("/signup", payload);
+    public search(payload: SearchPayload) {
+        return API.post("/search", { data: payload})
     }
+    
+
 }
 
 const userAPI = new UserAPI();

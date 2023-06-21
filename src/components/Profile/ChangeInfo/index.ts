@@ -3,11 +3,15 @@ import template from "./form.hbs";
 
 import { Input } from "../../Input";
 import { Button } from "../../Button";
-import userController from "../../../services/userController";
+import UserController from "../../../services/userController";
 import { withStore } from "../../../utils/Store";
 import isEqual from "../../../utils/isEqual";
 
 interface ChangeInfoFormProps {
+    message?: {
+        type: "success",
+        value: ""
+    }
     events?: {
         submit: (event: SubmitEvent) => void
     }
@@ -16,8 +20,6 @@ interface ChangeInfoFormProps {
 class ChangeInfoFormBase extends Block {
     constructor(props: ChangeInfoFormProps) {
         super(props);
-        userController.getUser();
-
     }
 
     protected componentDidUpdate(oldProps: any, newProps: any): boolean {
@@ -28,7 +30,7 @@ class ChangeInfoFormBase extends Block {
         const inputs = [
             { 
                 text: "Почта", 
-                placeholder: this.props.user?.email, 
+                placeholder: this.props.email, 
                 id: "mail-input", 
                 type: "text", 
                 name: "email", 
@@ -52,7 +54,7 @@ class ChangeInfoFormBase extends Block {
             },
             { 
                 text: "Логин", 
-                placeholder: "ivanivanov", 
+                placeholder: this.props.login, 
                 id: "login-input", 
                 type: "text", 
                 name: "login",
@@ -81,7 +83,7 @@ class ChangeInfoFormBase extends Block {
             },
             { 
                 text: "Имя", 
-                placeholder: "Иван", 
+                placeholder: this.props.first_name, 
                 id: "first_name-input", 
                 type: "text", 
                 name: "first_name",
@@ -106,7 +108,7 @@ class ChangeInfoFormBase extends Block {
             },
             { 
                 text: "Фамилия", 
-                placeholder: "Иванов", 
+                placeholder: this.props.second_name, 
                 id: "second_name-input", 
                 type: "text", 
                 name: "second_name",
@@ -130,7 +132,7 @@ class ChangeInfoFormBase extends Block {
             },
             {
                 text: "Имя в чате", 
-                placeholder: "Иван", 
+                placeholder: this.props.display_name, 
                 id: "display_name-input", 
                 type: "text", 
                 name: "display_name",
@@ -155,7 +157,7 @@ class ChangeInfoFormBase extends Block {
             },
             { 
                 text: "Телефон", 
-                placeholder: "+79099673030", 
+                placeholder: this.props.phone, 
                 id: "phone-input", 
                 type: "text", 
                 name: "phone",
@@ -220,7 +222,7 @@ class ChangeInfoFormBase extends Block {
             type: "submit",
             text: "Сохранить",
             events: {
-                click: (event: PointerEvent) => {
+                click: async (event: PointerEvent) => {
                     event.preventDefault();
                     let isValid = true;
 
@@ -234,9 +236,23 @@ class ChangeInfoFormBase extends Block {
                     if(isValid) {
                         const result = this.children.inputInfo.reduce((acc = {}, input: Input) => {
                             return { ...acc, [input.getProp("name")]: input.getProp("value") }
-                        }, {})
-                        // eslint-disable-next-line no-console
-                        console.log(result);
+                        }, {});
+                        const user = await UserController.changeProfile(result);
+                        if(user?.reason) {
+                            this.setProps({
+                                message: {
+                                    type: "error",
+                                    value: user.reason
+                                }
+                            })
+                            return;
+                        }
+                        this.setProps({
+                            message: {
+                                type: "success",
+                                value: "Информация успешно обновлена!"
+                            }
+                        })
                     }
                 }
             }

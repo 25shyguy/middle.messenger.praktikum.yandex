@@ -10,54 +10,97 @@ import UserController from "../../services/userController";
 import { withStore } from "../../utils/Store";
 import isEqual from "../../utils/isEqual";
 import { ProfileInfo } from "../../components/Profile/ProfileInfo";
+import { withRouter } from "../../HOC/withRoutes";
+import { Modal } from "../../components/Modal";
 
 class ProfilePageBase extends Block {
-
-    componentDidMount(): void {
-        console.log(this.props.first_name);
-
-    }
-
     protected init() {
-
         UserController.getUser();
-        this.children.profileName = new ProfileInfo({
+        this.children.profileEmail = new ProfileInfo({
+            text: "email",
+            placeholder: this.props.email
+        })
+        this.children.ProfileLogin = new ProfileInfo({
+            text: "Логин",
+            placeholder: this.props.login
+        })
+        this.children.ProfileName = new ProfileInfo({
             text: "Имя",
-            placeholder: this.props.user?.first_name
+            placeholder: this.props.first_name
+        })
+        this.children.ProfileSecondName = new ProfileInfo({
+            text: "Фамилия",
+            placeholder: this.props.second_name
+        })
+        this.children.ProfileDisplayName = new ProfileInfo({
+            text: "Имя в чате",
+            placeholder: this.props.display_name
+        })
+        this.children.ProfilePhone = new ProfileInfo({
+            text: "Телефон",
+            placeholder: this.props.phone
         })
 
         this.children.linkBack = new Link({
             img: arrow as string,
             alt: "Назад",
             className: "profile-page__back-link",
-            to: "/chat"
+            events: {
+                click: (event: PointerEvent) => {
+                    this.props.router.go("/chat")
+                }
+            }
+        });
+
+        this.children.modal = new Modal({
+            show: false,
+            events: {
+                submit: (event: SubmitEvent) => {
+                    console.log("Hello");
+                }
+            }
         });
 
         this.children.avatar = new Avatar({
-            alt: this.props.user?.login,
-            edit: "true"
+            img: this.props.avatar,
+            alt: this.props.login,
+            edit: "true",
+            events: {
+                click: (event: PointerEvent) => {
+                    this.children.modal.setProps({
+                        show: true
+                    })
+                }
+            }
         });
 
         this.children.linkChangeData = new Link({
             text: "Изменить данные",
-            to: "/profile/change-info",
-            className: "link-button"
+            className: "link-button",
+            events: {
+                click: () => {
+                    this.props.router.go("/profile/change-info")
+                }
+            }
         })
 
         this.children.linkChangePassword = new Link({
             text: "Изменить пароль",
-            to: "/profile/change-password",
-            className: "link-button"
+            className: "link-button",
+            events: {
+                click: () => {
+                    this.props.router.go("/profile/change-password")
+                }
+            }
         })
 
         this.children.linkExit = new Link({
             text: "Выйти",
-            to: "/login",
             className: "link-button red",
             events: {
-                click: (event: PointerEvent) => {
-                    event.preventDefault();
+                click: () => {
                     UserController.logout();
+                    this.props.router.go("/")
                 }
             }
         })
@@ -73,4 +116,4 @@ class ProfilePageBase extends Block {
 }
 
 const withUser = withStore((state) => ({ ...state.user }))
-export const ProfilePage = withUser(ProfilePageBase);
+export const ProfilePage = withRouter(withUser(ProfilePageBase));
