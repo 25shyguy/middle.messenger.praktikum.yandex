@@ -7,6 +7,7 @@ import { Link } from "../../components/Link";
 import { Avatar } from "../../components/Profile/Avatar";
 import { ChangePasswordForm } from "../../components/Profile/ChangePasswordForm";
 import { withRouter } from "../../HOC/withRoutes";
+import { withStore } from "../../utils/Store";
 
 class ProfileChangePassword extends Block {
     constructor(props = {}) {
@@ -26,6 +27,8 @@ class ProfileChangePassword extends Block {
         });
 
         this.children.avatar = new Avatar({
+            img: this.props.avatar,
+            alt: this.props.login,
             edit: "false"
         });
 
@@ -36,5 +39,5 @@ class ProfileChangePassword extends Block {
         return this.compile(template, this.props);
     }
 }
-
-export const ProfileChangePasswordPage = withRouter(ProfileChangePassword)
+const withUser = withStore((state) => ({ ...state.user }))
+export const ProfileChangePasswordPage = withRouter(withUser(ProfileChangePassword))

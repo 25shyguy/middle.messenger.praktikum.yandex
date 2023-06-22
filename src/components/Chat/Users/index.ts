@@ -1,7 +1,7 @@
 import Block from "../../../utils/Block";
 import template from "./user.hbs";
 import noImage from "../../../images/no-image.svg";
-
+const avatarURL = "https://ya-praktikum.tech/api/v2/resources"
 
 interface UserProps {
     avatar: string | null;
@@ -17,11 +17,9 @@ export class Users extends Block {
     }
 
     protected init(): void {
-        if (!this.props.avatar) {
-            this.setProps({
-                avatar: noImage as string,
-            })
-        }
+        this.setProps({
+            avatar: this.props.avatar ? `${avatarURL}${this.props.avatar}`: noImage as string,
+        })
     }
 
     protected render(): DocumentFragment {

@@ -31,6 +31,8 @@ interface SidebarProps {
     setModal: (modal: Modal) => void;
 }
 
+const avatarURL = "https ://ya-praktikum.tech/api/v2/resources"
+
 class SidebarBase extends Block {
     constructor(props: Partial<SidebarProps>) {
         super(props)
@@ -63,7 +65,7 @@ class SidebarBase extends Block {
         if (this.props.chats) {
             this.children.userChat = this.props.chats.map((chat: chat) => {
                 return new UserChats({
-                    img: chat.avatar || noAvatar as string,
+                    img: chat.avatar ? `${avatarURL}${chat.avatar}` : noAvatar as string,
                     name: chat.title,
                     message: chat.last_message?.content,
                     notifications: chat.unread_count,

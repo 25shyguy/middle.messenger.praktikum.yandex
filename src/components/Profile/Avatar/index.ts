@@ -3,6 +3,8 @@ import template from "./avatar.hbs";
 
 import noImage from "../../../images/no-image.svg";
 import userController from "../../../services/userController";
+const avatarURL = "https://ya-praktikum.tech/api/v2/resources"
+
 
 interface AvatarProps {
     img?: string;
@@ -22,8 +24,7 @@ export class Avatar extends Block {
     protected init(): void {
         userController.getUser();
         this.setProps({
-            img: this.props.img !== null ? this.props.img : noImage,
-            style: this.props.img !== null ? "" : "width: 50%;"
+            img: this.props.img ? `${avatarURL}${this.props.img}` : noImage,
         })
     }
 

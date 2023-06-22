@@ -5,6 +5,7 @@ import arrow from "../../images/arrow.svg";
 import { Link } from "../../components/Link";
 import { Avatar } from "../../components/Profile/Avatar";
 import { ChangeInfoForm } from "../../components/Profile/ChangeInfo";
+import { withStore } from "../../utils/Store";
 import { withRouter } from "../../HOC/withRoutes";
 
 class ProfilePageInfoBase extends Block {
@@ -25,7 +26,9 @@ class ProfilePageInfoBase extends Block {
         });
 
         this.children.avatar = new Avatar({
-            edit: "false"
+            img: this.props.avatar,
+            alt: this.props.login,
+            edit: "false",
         });
 
         this.children.form = new ChangeInfoForm({})
@@ -35,5 +38,5 @@ class ProfilePageInfoBase extends Block {
         return this.compile(template, this.props);
     }
 }
-
-export const ProfilePageInfo = withRouter(ProfilePageInfoBase)
+const withUser = withStore((state) => ({ ...state.user }))
+export const ProfilePageInfo = withRouter(withUser(ProfilePageInfoBase))

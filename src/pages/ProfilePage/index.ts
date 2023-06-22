@@ -15,7 +15,6 @@ import { Modal } from "../../components/Modal";
 
 class ProfilePageBase extends Block {
     protected init() {
-        UserController.getUser();
         this.children.profileEmail = new ProfileInfo({
             text: "email",
             placeholder: this.props.email
