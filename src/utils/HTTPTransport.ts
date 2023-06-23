@@ -39,8 +39,7 @@ export class HTTPTransport {
         this.baseURL = `https://ya-praktikum.tech${baseURL}`;
     }
     get: HTTPMethod = (url, options) => {
-        const data = queryStringify(options)
-        return this.request(url, { data, method: METHODS.GET });
+        return this.request(url, { ...options, method: METHODS.GET });
     };
 
     put: HTTPMethod = (url, options) => {
@@ -58,7 +57,11 @@ export class HTTPTransport {
     request = (url: string, options: Options): Promise<ResponseData> => {
         return new Promise((resolve, reject) => {
             const xhr = new XMLHttpRequest();
-            const _url = `${this.baseURL}${url}`;
+            let query = "";
+            if(options.method === "GET") {
+                query = queryStringify(options.data);
+            }
+            const _url = `${this.baseURL}${url}${query}`;
 
             xhr.open(options.method, _url);
 
