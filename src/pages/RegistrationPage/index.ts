@@ -2,8 +2,9 @@ import Block from "../../utils/Block";
 import template from "./registration.hbs";
 
 import { RegistrationContainer } from "../../components/Registration";
+import { withRouter } from "../../HOC/withRoutes";
 
-export class RegistrationPage extends Block {
+class RegistrationPageBase extends Block {
     constructor(props = {}) {
         super(props)
     }
@@ -16,3 +17,4 @@ export class RegistrationPage extends Block {
         return this.compile(template, this.props);
     }
 }
+export const RegistrationPage = withRouter(RegistrationPageBase);

@@ -4,6 +4,7 @@
     font-size: $text-big;
     color: $dark-blue;
     transition: $filter-transition;
+    cursor: pointer;
 
     &:hover {
         filter: brightness(0.8);

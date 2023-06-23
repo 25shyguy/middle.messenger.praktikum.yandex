@@ -1,0 +1,11 @@
+<div class="modal" data-show="{{ show }}">
+    <form id="modal_form" method="put" enctype="multipart/form-data">
+        {{{closeButton}}}
+        <h3>Загрузите файл</h3>
+        {{{input}}}
+        {{{buttonSubmit}}}
+        <span class="modal_form-message {{message.type}}">
+            {{{message.value}}}
+        </span>
+    </form>
+</div>

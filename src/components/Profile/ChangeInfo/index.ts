@@ -3,24 +3,34 @@ import template from "./form.hbs";
 
 import { Input } from "../../Input";
 import { Button } from "../../Button";
+import UserController from "../../../services/userController";
+import { withStore } from "../../../utils/Store";
+import isEqual from "../../../utils/isEqual";
 
 interface ChangeInfoFormProps {
+    message?: {
+        type: "success",
+        value: ""
+    }
     events?: {
         submit: (event: SubmitEvent) => void
     }
 }
 
-export class ChangeInfoForm extends Block {
+class ChangeInfoFormBase extends Block {
     constructor(props: ChangeInfoFormProps) {
         super(props);
     }
 
-    protected init(): void {
+    protected componentDidUpdate(oldProps: any, newProps: any): boolean {
+        return !isEqual(oldProps, newProps)
+    }
 
+    protected init(): void {
         const inputs = [
             { 
                 text: "Почта", 
-                placeholder: "pochta@yandex.ru", 
+                placeholder: this.props.email, 
                 id: "mail-input", 
                 type: "text", 
                 name: "email", 
@@ -44,7 +54,7 @@ export class ChangeInfoForm extends Block {
             },
             { 
                 text: "Логин", 
-                placeholder: "ivanivanov", 
+                placeholder: this.props.login, 
                 id: "login-input", 
                 type: "text", 
                 name: "login",
@@ -73,7 +83,7 @@ export class ChangeInfoForm extends Block {
             },
             { 
                 text: "Имя", 
-                placeholder: "Иван", 
+                placeholder: this.props.first_name, 
                 id: "first_name-input", 
                 type: "text", 
                 name: "first_name",
@@ -98,7 +108,7 @@ export class ChangeInfoForm extends Block {
             },
             { 
                 text: "Фамилия", 
-                placeholder: "Иванов", 
+                placeholder: this.props.second_name, 
                 id: "second_name-input", 
                 type: "text", 
                 name: "second_name",
@@ -122,7 +132,7 @@ export class ChangeInfoForm extends Block {
             },
             {
                 text: "Имя в чате", 
-                placeholder: "Иван", 
+                placeholder: this.props.display_name, 
                 id: "display_name-input", 
                 type: "text", 
                 name: "display_name",
@@ -147,7 +157,7 @@ export class ChangeInfoForm extends Block {
             },
             { 
                 text: "Телефон", 
-                placeholder: "+79099673030", 
+                placeholder: this.props.phone, 
                 id: "phone-input", 
                 type: "text", 
                 name: "phone",
@@ -212,7 +222,7 @@ export class ChangeInfoForm extends Block {
             type: "submit",
             text: "Сохранить",
             events: {
-                click: (event: PointerEvent) => {
+                click: async (event: PointerEvent) => {
                     event.preventDefault();
                     let isValid = true;
 
@@ -226,9 +236,23 @@ export class ChangeInfoForm extends Block {
                     if(isValid) {
                         const result = this.children.inputInfo.reduce((acc = {}, input: Input) => {
                             return { ...acc, [input.getProp("name")]: input.getProp("value") }
-                        }, {})
-                        // eslint-disable-next-line no-console
-                        console.log(result);
+                        }, {});
+                        const user = await UserController.changeProfile(result).catch(e => e);
+                        if(user?.reason) {
+                            this.setProps({
+                                message: {
+                                    type: "error",
+                                    value: user.reason
+                                }
+                            })
+                            return;
+                        }
+                        this.setProps({
+                            message: {
+                                type: "success",
+                                value: "Информация успешно обновлена!"
+                            }
+                        })
                     }
                 }
             }
@@ -236,7 +260,9 @@ export class ChangeInfoForm extends Block {
     }
 
     protected render(): DocumentFragment {
-        this.init();
         return this.compile(template, this.props);
     }
 }
+
+const withUser = withStore((state) => ({ ...state.user }))
+export const ChangeInfoForm = withUser(ChangeInfoFormBase);

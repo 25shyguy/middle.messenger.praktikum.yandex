@@ -7,8 +7,16 @@ const METHODS = {
 
 type Options = {
     method: string,
+    contentType?: string;
     data?: any
 }
+
+type ResponseData = {
+    status: number;
+    response: Record<string, any>
+}
+
+type HTTPMethod = (url: string, options?: Partial<Options>) => Promise<ResponseData>;
 
 function queryStringify(data: any) {
     let result = "";
@@ -26,26 +34,34 @@ function queryStringify(data: any) {
 }
 
 export class HTTPTransport {
-    get = (url: string, options: Options) => {
+    baseURL: string
+    constructor(baseURL: string) {
+        this.baseURL = `https://ya-praktikum.tech${baseURL}`;
+    }
+    get: HTTPMethod = (url, options) => {
         return this.request(url, { ...options, method: METHODS.GET });
     };
 
-    put = (url: string, options: Options) => {
+    put: HTTPMethod = (url, options) => {
         return this.request(url, { ...options, method: METHODS.PUT });
     };
 
-    post = (url: string, options: Options) => {
+    post: HTTPMethod = (url, options) => {
         return this.request(url, { ...options, method: METHODS.POST });
     };
 
-    delete = (url: string, options: Options) => {
+    delete: HTTPMethod = (url, options) => {
         return this.request(url, { ...options, method: METHODS.DELETE });
     };
 
-    request = (url: string, options: Options) => {
+    request = (url: string, options: Options): Promise<ResponseData> => {
         return new Promise((resolve, reject) => {
             const xhr = new XMLHttpRequest();
-            const _url = `${url}${queryStringify(options.data)}`;
+            let query = "";
+            if(options.method === "GET") {
+                query = queryStringify(options.data);
+            }
+            const _url = `${this.baseURL}${url}${query}`;
 
             xhr.open(options.method, _url);
 
@@ -53,23 +69,24 @@ export class HTTPTransport {
                 resolve(xhr);
             };
 
-            const errorHandler = (e: ProgressEvent) => {
-                console.log(e);
+            xhr.onerror = () => {
+                reject(xhr);
             }
 
-            xhr.onabort = errorHandler;
-            xhr.onerror = errorHandler;
-
-            xhr.timeout = 30000;
             xhr.ontimeout = () => reject({ reason: "Timeout" });
+
+            if(!(options.data instanceof FormData)) {
+                xhr.setRequestHeader("Content-Type", "application/json")
+            }
 
             xhr.withCredentials = true;
             xhr.responseType = "json";
+            xhr.timeout = 30000;
 
             if (options.method === METHODS.GET || !options.data) {
                 xhr.send();
             } else {
-                xhr.send(JSON.stringify(options.data));
+                xhr.send(options.data instanceof FormData ? options.data : JSON.stringify(options.data));
             }
         });
     };

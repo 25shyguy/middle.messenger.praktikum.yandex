@@ -37,6 +37,19 @@ $max-width: 500px;
         margin-bottom: 50px;
         max-width: $max-width;
 
+        &-message {
+            font-size: $text-medium;
+            margin-bottom: 15px;
+
+            .error {
+                color: $red;
+            }
+
+            .success {
+                color: $green;
+            }
+        }
+
         .button-submit {
             margin-top: 50px;
             max-width: 280px;

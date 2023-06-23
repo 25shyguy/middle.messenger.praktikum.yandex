@@ -1,9 +1,9 @@
 <form class="login-form">
     <h3>Регистрация</h3>
+    <span class="login-form__error">{{ reason }}</span>
     {{#each inputs}}
-        {{{this}}}
+    {{{this}}}
     {{/each}}
     {{{submit}}}
     {{{loginLink}}}
 </form>
-

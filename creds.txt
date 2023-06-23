@@ -1,0 +1,10 @@
+email:"798798798798798798@mail.com"
+first_name:"Ivan"
+login:"Ivan90809890809890809"
+password:"rereHepf25"
+phone:"+798263787474"
+repeatPassword:"rereHepf25"
+second_name:"Ivan"
+
+Corn222
+1082151

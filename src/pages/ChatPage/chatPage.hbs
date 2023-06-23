@@ -1,4 +1,9 @@
 <main>
     {{{sidebar}}}
-    {{{chat}}}
+    {{#if chatContainer}}
+    {{{chatContainer}}}
+    {{else}}
+    <div class="no-chat">Выберите чат чтобы отправить сообщение</div>
+    {{/if}}
+    {{{modal}}}
 </main>

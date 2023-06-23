@@ -99,6 +99,7 @@ class Block<P extends Record<string, any> = any> {
 
   private _componentDidUpdate(oldProps: P, newProps: P) {
     if (this.componentDidUpdate(oldProps, newProps)) {
+      // this._init();
       this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
     }
   }
@@ -179,8 +180,23 @@ class Block<P extends Record<string, any> = any> {
     return new DocumentFragment();
   }
 
+  // getContent() {
+  //   return this.element;
+  // }
+
   getContent() {
-    return this.element;
+    // Хак, чтобы вызвать CDM только после добавления в DOM
+    if (this.element?.parentNode?.nodeType === Node.DOCUMENT_FRAGMENT_NODE) {
+      setTimeout(() => {
+        if (
+          this.element?.parentNode?.nodeType !== Node.DOCUMENT_FRAGMENT_NODE
+        ) {
+          this.eventBus().emit(Block.EVENTS.FLOW_CDM);
+        }
+      }, 100);
+    }
+
+    return this.element!;
   }
 
   _makePropsProxy(props: P) {

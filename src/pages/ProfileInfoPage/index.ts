@@ -5,8 +5,11 @@ import arrow from "../../images/arrow.svg";
 import { Link } from "../../components/Link";
 import { Avatar } from "../../components/Profile/Avatar";
 import { ChangeInfoForm } from "../../components/Profile/ChangeInfo";
+import { withStore } from "../../utils/Store";
+import { withRouter } from "../../HOC/withRoutes";
+import { Routes } from "../../utils/Routes";
 
-export class ProfilePageInfo extends Block {
+class ProfilePageInfoBase extends Block {
     constructor(props = {}) {
         super(props)
     }
@@ -16,11 +19,17 @@ export class ProfilePageInfo extends Block {
             img: arrow as string,
             alt: "Назад",
             className: "profile-page__back-link",
-            to: "/chat"
+            events: {
+                click: () => {
+                    this.props.router.go(Routes.Proflie)
+                }
+            }
         });
 
         this.children.avatar = new Avatar({
-            edit: "false"
+            img: this.props.avatar,
+            alt: this.props.login,
+            edit: "false",
         });
 
         this.children.form = new ChangeInfoForm({})
@@ -30,3 +39,5 @@ export class ProfilePageInfo extends Block {
         return this.compile(template, this.props);
     }
 }
+const withUser = withStore((state) => ({ ...state.user }))
+export const ProfilePageInfo = withRouter(withUser(ProfilePageInfoBase))

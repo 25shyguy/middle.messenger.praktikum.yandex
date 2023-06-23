@@ -7,8 +7,10 @@ import { Textarea } from "../../Textarea";
 
 import submitButtonImage from "../../../images/arrow.svg";
 import attachmentButtonImage from "../../../images/attchment.svg";
+import { MessageController } from "../../../services/MessageController";
 
 interface ChatFormProps {
+    messageController: MessageController | null
     events?: {
         submit: (event: SubmitEvent) => void
     }
@@ -21,12 +23,9 @@ export class ChatForm extends Block {
 
     protected init(): void {
         const options = [
-            // eslint-disable-next-line no-console
-            { text: "Фото или Видео", className: "", click: (event: PointerEvent) => { console.log("Dropdown: ", event) } },
-            // eslint-disable-next-line no-console
-            { text: "Файл", className: "", click: (event: PointerEvent) => { console.log("Dropdown: ", event)} },
-            // eslint-disable-next-line no-console
-            { text: "Локация", className: "", click: (event: PointerEvent) => { console.log("Dropdown: ", event) } }
+            { text: "Фото или Видео", className: "", click: (event: PointerEvent) => { return event } },
+            { text: "Файл", className: "", click: (event: PointerEvent) => { return event } },
+            { text: "Локация", className: "", click: (event: PointerEvent) => { return event } }
         ];
 
         this.children.attachments = new Dropdown({
@@ -52,15 +51,11 @@ export class ChatForm extends Block {
                     event.preventDefault();
                     const textarea = this.children.textarea;
                     if (textarea.getValue().trim().length === 0) {
-                        // eslint-disable-next-line no-console
-                        console.log("Поле для сообщения не может быть пустым!");
                         textarea.setValue("");
                         return;
                     }
 
-                    const result = { [textarea.getProp("name")]: textarea.getValue() }
-                    // eslint-disable-next-line no-console
-                    console.log(result);
+                    this.props.messageController.send(textarea.getValue(), "message");
                     textarea.setValue("");
 
                 }

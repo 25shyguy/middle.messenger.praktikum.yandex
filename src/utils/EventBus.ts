@@ -4,7 +4,7 @@ export class EventBus {
         this.listeners = {};
     }
 
-    on(event, callback) {
+    public on(event, callback) {
         if(!this.listeners[event]) {
             this.listeners[event] = [];
         }
@@ -12,7 +12,7 @@ export class EventBus {
         this.listeners[event].push(callback);
     }
 
-    off(event, callback) {
+    public off(event, callback) {
         if(!this.listeners[event]) {
             throw new Error(`event: ${event} is not exist`);
         }
@@ -21,7 +21,7 @@ export class EventBus {
             (listener) => listener !== callback)
     }
 
-    emit(event, ...args) {
+    public emit(event, ...args) {
         if(!this.listeners[event]) {
             throw new Error(`event: ${event} is not exist`);
         }

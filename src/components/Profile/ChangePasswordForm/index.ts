@@ -3,8 +3,13 @@ import template from "./form.hbs";
 
 import { Button } from "../../Button";
 import { Input } from "../../Input";
+import UserController from "../../../services/userController";
 
 interface ChangePasswordFormProps {
+    message?: {
+        type: "success",
+        value: ""
+    }
     events?: {
         submit: (event: SubmitEvent) => void
     }
@@ -17,9 +22,9 @@ export class ChangePasswordForm extends Block {
 
     protected init(): void {
         const inputs = [
-            {name: "oldPassword", value: "1234", type: "password", label: "Старый пароль"},
-            {name: "newPassword", value: "1234", type: "password", label: "Новый пароль"},
-            {name: "repeatNewPassword", value: "1234", type: "password", label: "Повторите новый пароль"},
+            {name: "oldPassword", value: "", type: "password", label: "Старый пароль"},
+            {name: "newPassword", value: "", type: "password", label: "Новый пароль"},
+            {name: "repeatNewPassword", value: "", type: "password", label: "Повторите новый пароль"},
         ];
 
         this.children.inputPassword = inputs.map((input, index) => {
@@ -71,7 +76,7 @@ export class ChangePasswordForm extends Block {
             type: "submit",
             text: "Сохранить",
             events: {
-                click: (event: PointerEvent) => {
+                click: async (event: PointerEvent) => {
                     event.preventDefault();
                     let isValid = true;
                     let newPassword = "";
@@ -81,7 +86,7 @@ export class ChangePasswordForm extends Block {
                             newPassword = input.getProp("value")
                         }
 
-                        if (input.getProp("name") === "repeatNewPassword" && input.getProp("value") !== newPassword) {
+                        if (input.getProp("name") === "repeatNewPassword" && input.getProp("value") !== newPassword || input.getProp("value").trim() === "") {
                             input.setProps({
                                 error: "Пароли не совпадают!"
                             })
@@ -94,11 +99,33 @@ export class ChangePasswordForm extends Block {
                     });
 
                     if (isValid) {
-                        const result = this.children.inputPassword.reduce((acc = {}, input: Input) => {
+                        const { newPassword, oldPassword } = this.children.inputPassword.reduce((acc = {}, input: Input) => {
                             return { ...acc, [input.getProp("name")]: input.getProp("value") }
-                        }, {})
-                        // eslint-disable-next-line no-console
-                        console.log(result);
+                        }, {});
+                        const user = await UserController.changePassword({ newPassword, oldPassword }).catch(e => e);
+
+                        if (user?.reason) {
+                            this.setProps({
+                                message: {
+                                    type: "error",
+                                    value: user.reason
+                                }
+                            })
+                            return;
+                        }
+
+                        this.children.inputPassword.forEach((input: Input) => {
+                            input.setProps({
+                                value: ""
+                            })
+                        });
+
+                        this.setProps({
+                            message: {
+                                type: "success",
+                                value: "Пароль изменен"
+                            }
+                        })
                     }
                 }
             }

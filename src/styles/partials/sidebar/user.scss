@@ -10,7 +10,7 @@
         transition: $bg-transition;
 
         &-img {
-            width: 47px;
+            min-width: 47px;
             height: 47px;
             border-radius: 50%;
             object-fit: cover;

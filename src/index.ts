@@ -1,56 +1,47 @@
 import { ChatPage } from "./pages/ChatPage";
-import { ErrorPage } from "./pages/ErrorPage";
 import { LoginPage } from "./pages/LoginPage";
 import { ProfileChangePasswordPage } from "./pages/ProfileChangePasswordPage";
 import { ProfilePageInfo } from "./pages/ProfileInfoPage";
 import { ProfilePage } from "./pages/ProfilePage";
 import { RegistrationPage } from "./pages/RegistrationPage";
-import renderDOM from "./utils/renderDOM";
+import UserController from "./services/userController";
+import Router from "./utils/Router";
+import { Routes } from "./utils/Routes";
+import store, { StoreEvents } from "./utils/Store";
 
-window.addEventListener("DOMContentLoaded", () => {
-    const loginPage = new LoginPage();
-    const registartionPage = new RegistrationPage();
+// declare global {
+//     interface Window {
+//         store: Store<AppState>
+//     }
+// }
 
-    const chatPage = new ChatPage();
+window.addEventListener("DOMContentLoaded", async () => {
+    Router
+        .use(Routes.Index, LoginPage)
+        .use(Routes.Registration, RegistrationPage)
+        .use(Routes.Chat, ChatPage)
+        .use(Routes.Proflie, ProfilePage)
+        .use(Routes.ProfileChangeInfo, ProfilePageInfo)
+        .use(Routes.ProfileChangePassword, ProfileChangePasswordPage)
 
-    const profilePage = new ProfilePage({ name: "Ivan" });
-    const profilePageInfo = new ProfilePageInfo();
-    const profileChangePassword = new ProfileChangePasswordPage();
+    store.on(StoreEvents.Updated, (nextState: any) => {
+        return nextState
+    });
 
-    const page404 = new ErrorPage({ errorCode: "404", errorText: "Не туда попали" });
-    const page500 = new ErrorPage({ errorCode: "500", errorText: "Мы уже фиксим" })
+    try {
+        const user = await UserController
+            .getUser()
+            .catch((e) => {
+                return e
+            })
 
-    switch (window.location.pathname) {
-        case "/":
-            renderDOM(chatPage);
-            break;
-        case "/login":
-            renderDOM(loginPage);
-            break;
-        case "/chat":
-            renderDOM(chatPage);
-            break;
-        case "/registration":
-            renderDOM(registartionPage);
-            break;
-        case "/profile":
-            renderDOM(profilePage);
-            break;
-        case "/profile/change-info":
-            renderDOM(profilePageInfo);
-            break;
-        case "/profile/change-password":
-            renderDOM(profileChangePassword);
-            break;
-        case "/not-found":
-            renderDOM(page404);
-            break;
-        case "/500":
-            renderDOM(page500);
-            break;
-        default:
-            window.location.assign("/not-found");
-            break;
+        Router.start();
+
+        if (user?.reason) {
+            Router.go(Routes.Index)
+        }
+    } catch (e) {
+        Router.start();
+        Router.go(Routes.Index);
     }
-    
 })

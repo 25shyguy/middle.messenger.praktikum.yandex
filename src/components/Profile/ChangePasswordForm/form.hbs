@@ -1,8 +1,11 @@
 <form class="profile-page__info-wrap">
+    <span class="profile-page__info-wrap-message {{message.type}}">
+        {{message.value}}
+    </span>
     {{#each inputPassword}}
-        <div class="profile-page__info">
-            {{{this}}}
-        </div>
+    <div class="profile-page__info">
+        {{{this}}}
+    </div>
     {{/each}}
     {{{submit}}}
 </form>

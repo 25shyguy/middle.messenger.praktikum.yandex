@@ -4,14 +4,18 @@ import template from "./registration.hbs";
 import { Button } from "../../components/Button";
 import { Input } from "../../components/Input";
 import { Link } from "../../components/Link";
+import { withRouter } from "../../HOC/withRoutes";
+import UserController from "../../services/userController";
+import { Routes } from "../../utils/Routes";
 
 interface RegistrationContainerProps {
+    reason?: null
     events?: {
         submit: (event: SubmitEvent) => void
     }
 }
 
-export class RegistrationContainer extends Block {
+class RegistrationContainerBase extends Block {
     constructor(props: RegistrationContainerProps) {
         super(props)
     }
@@ -237,7 +241,7 @@ export class RegistrationContainer extends Block {
             type: "submit",
             text: "Зарегистрироваться",
             events: {
-                click: (event: PointerEvent) => {
+                click: async (event: PointerEvent) => {
                     event.preventDefault();
                     let isValid = true;
                     let password = "";
@@ -262,8 +266,14 @@ export class RegistrationContainer extends Block {
                         const result = this.children.inputs.reduce((acc = {}, input: Input) => {
                             return { ...acc, [input.getProp("name")]: input.getProp("value") }
                         }, {});
-                        // eslint-disable-next-line no-console
-                        console.log(result);
+                        const user = await UserController.register(result).catch(e => e);
+                        if(user?.reason) {
+                            this.setProps({
+                                reason: user.reason
+                            })
+                            return;
+                        }
+                        this.props.router.go(Routes.Chat);
                     }
                 }
             }
@@ -271,8 +281,12 @@ export class RegistrationContainer extends Block {
 
         this.children.loginLink = new Link({
             className: "link-button",
-            to: "/login",
-            text: "Войти"
+            text: "Войти",
+            events: {
+                click: () => {
+                    this.props.router.go(Routes.Index)
+                }
+            }
         });
     }
 
@@ -280,3 +294,5 @@ export class RegistrationContainer extends Block {
         return this.compile(template, this.props);
     }
 }
+
+export const RegistrationContainer = withRouter(RegistrationContainerBase)
