@@ -2,7 +2,7 @@ import chatAPI, { ChatPayload, CreateChatPayload, UsersPayload } from "../api/ch
 
 class ChatController {
     public async getChats() {
-        const data = await chatAPI.chats();
+        const data = await chatAPI.chats().catch(e => e);
         const { response } = data;
         if (response?.reason || data.status === 500) {
             return data
@@ -11,7 +11,7 @@ class ChatController {
     }
 
     public async getChatToken(token: number) {
-        const data = await chatAPI.token(token);
+        const data = await chatAPI.token(token).catch(e => e);
         const { response } = data;
         if (response?.reason || data.status === 500) {
             return data
@@ -20,7 +20,7 @@ class ChatController {
     }
 
     public async addUsers(payload: UsersPayload) {
-        const data = await chatAPI.users(payload);
+        const data = await chatAPI.users(payload).catch(e => e);
         const { response } = data;
         if (response?.reason || data.status === 500) {
             return data
@@ -29,7 +29,7 @@ class ChatController {
     }
 
     public async getChatUsers(payload: string) {
-        const data = await chatAPI.chatUsers(payload);
+        const data = await chatAPI.chatUsers(payload).catch(e => e);
         const { response } = data;
         if (response?.reason || data.status === 500) {
             return data
@@ -38,7 +38,7 @@ class ChatController {
     }
 
     public async deleteChatUsers(payload: UsersPayload) {
-        const data = await chatAPI.deleteUsers(payload);
+        const data = await chatAPI.deleteUsers(payload).catch(e => e);
         const { response } = data;
         if (response?.reason || data.status === 500) {
             return data
@@ -47,7 +47,7 @@ class ChatController {
     }
 
     public async deleteChat(payload: ChatPayload) {
-        const data = await chatAPI.deleteChat(payload);
+        const data = await chatAPI.deleteChat(payload).catch(e => e);
         const { response } = data;
         if (response?.reason || data.status === 500) {
             return data
@@ -56,7 +56,7 @@ class ChatController {
     }
 
     public async createChat(payload: CreateChatPayload) {
-        const data = await chatAPI.createChat(payload);
+        const data = await chatAPI.createChat(payload).catch(e => e);
         const { response } = data;
         if (response?.reason || data.status === 500) {
             return data

@@ -8,6 +8,7 @@ import { chat } from "../../Sidebar";
 import { MessageController } from "../../../services/MessageController";
 import { Modal } from "../../../pages/ChatPage";
 
+const avatarURL = "https://ya-praktikum.tech/api/v2/resources";
 
 interface ChatProps {
     chat: chat,
@@ -30,7 +31,7 @@ export class Chat extends Block {
     protected init(): void {
         this.children.chatHeader = new ChatHeader({
             name: this.props.chat.title,
-            img: this.props.chat.avatar,
+            img: this.props.chat.avatar ? `${avatarURL}${this.props.chat.avatar}` : null,
             setModal: this.props.setModal,
             deleteChat: this.props.deleteChat
         });

@@ -33,11 +33,11 @@
 
 export enum Routes {
     Index = "/",
-    Chat = "/chat",
-    Proflie = "/profile",
-    Registration = "/registration",
-    ProfileChangeInfo = "/profile/change-info",
-    ProfileChangePassword = "/profile/change-password",
+    Chat = "/messenger",
+    Proflie = "/settings",
+    Registration = "/sign-up",
+    ProfileChangeInfo = "/settings/change-info",
+    ProfileChangePassword = "/settings/change-password",
     Page404 = "/404",
     Page500 = "/500"
 }

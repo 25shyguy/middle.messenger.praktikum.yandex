@@ -1,9 +1,7 @@
 import Block from "../../utils/Block";
 import template from "./sidebar.hbs";
 
-import { Input } from "../Input";
 import { UserChats } from "./components/User";
-import ChatController from "../../services/ChatController";
 import { withRouter } from "../../HOC/withRoutes";
 import isEqual from "../../utils/isEqual";
 import { Button } from "../Button";
@@ -31,7 +29,7 @@ interface SidebarProps {
     setModal: (modal: Modal) => void;
 }
 
-const avatarURL = "https ://ya-praktikum.tech/api/v2/resources"
+const avatarURL = "https://ya-praktikum.tech/api/v2/resources"
 
 class SidebarBase extends Block {
     constructor(props: Partial<SidebarProps>) {

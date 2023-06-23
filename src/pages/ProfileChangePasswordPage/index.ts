@@ -8,6 +8,7 @@ import { Avatar } from "../../components/Profile/Avatar";
 import { ChangePasswordForm } from "../../components/Profile/ChangePasswordForm";
 import { withRouter } from "../../HOC/withRoutes";
 import { withStore } from "../../utils/Store";
+import { Routes } from "../../utils/Routes";
 
 class ProfileChangePassword extends Block {
     constructor(props = {}) {
@@ -20,8 +21,8 @@ class ProfileChangePassword extends Block {
             alt: "Назад",
             className: "profile-page__back-link",
             events: {
-                click: (event: PointerEvent) => {
-                    this.props.router.go("/profile")
+                click: () => {
+                    this.props.router.go(Routes.Proflie)
                 }
             }
         });

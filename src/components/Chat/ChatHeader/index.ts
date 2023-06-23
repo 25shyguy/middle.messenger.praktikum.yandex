@@ -7,7 +7,7 @@ import noImage from "../../../images/no-image.svg";
 import { Modal } from "../../../pages/ChatPage";
 
 interface ChatHeaderProps {
-    img?: string;
+    img?: string | null;
     name: string;
     setModal: (modal: Modal) => void;
     deleteChat: () => void;

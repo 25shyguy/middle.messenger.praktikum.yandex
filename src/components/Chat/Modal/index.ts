@@ -79,7 +79,7 @@ export class DropdownModal extends Block {
                 const response = await ChatController.addUsers({
                     users,
                     chatId: this.props.chatID
-                });
+                }).catch(e => e);
                 if (response?.reason || response?.status === 500) {
                     this.setProps({
                         message: {
@@ -101,7 +101,7 @@ export class DropdownModal extends Block {
                 const response = await ChatController.deleteChatUsers({
                     users,
                     chatId: this.props.chatID
-                });
+                }).catch(e => e);
                 if (response?.reason || response?.status === 500) {
                     this.setProps({
                         message: {
@@ -145,7 +145,7 @@ export class DropdownModal extends Block {
 
 
         if(this.props.type === "delete") {
-            const users = await this.props.userEvent();
+            const users = await this.props.userEvent().catch((e: Error) => e);
             this.setProps({ foundUsers: users });
         }
 
@@ -159,7 +159,7 @@ export class DropdownModal extends Block {
                 events: {
                     change: async (event: InputEvent) => {
                         const value = (event.target as HTMLInputElement).value;
-                        const foundUsers = await this.props.userEvent(value)
+                        const foundUsers = await this.props.userEvent(value).catch((e: Error) => e);
                         this.setProps({ foundUsers });
                     }
                 }
@@ -191,7 +191,7 @@ export class DropdownModal extends Block {
                     event.preventDefault();
                     if(this.props.type === "create") {
                         if(this.props.title) {
-                            await this.props.userEvent(this.props.title);
+                            await this.props.userEvent(this.props.title).catch((e: Error) => e);
                             return this.setProps({
                                 message: {
                                     value: "Чат создан",

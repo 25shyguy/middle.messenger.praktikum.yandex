@@ -7,6 +7,7 @@ import { Avatar } from "../../components/Profile/Avatar";
 import { ChangeInfoForm } from "../../components/Profile/ChangeInfo";
 import { withStore } from "../../utils/Store";
 import { withRouter } from "../../HOC/withRoutes";
+import { Routes } from "../../utils/Routes";
 
 class ProfilePageInfoBase extends Block {
     constructor(props = {}) {
@@ -19,8 +20,8 @@ class ProfilePageInfoBase extends Block {
             alt: "Назад",
             className: "profile-page__back-link",
             events: {
-                click: (event: PointerEvent) => {
-                    this.props.router.go("/profile")
+                click: () => {
+                    this.props.router.go(Routes.Proflie)
                 }
             }
         });

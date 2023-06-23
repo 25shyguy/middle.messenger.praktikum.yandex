@@ -12,6 +12,19 @@ import isEqual from "../../utils/isEqual";
 import { ProfileInfo } from "../../components/Profile/ProfileInfo";
 import { withRouter } from "../../HOC/withRoutes";
 import { Modal } from "../../components/Modal";
+import { Routes } from "../../utils/Routes";
+
+interface Profile {
+    avatar: string;
+    display_name: string
+    email: string;
+    first_name: string
+    id: number
+    login: string
+    phone: string;
+    second_name: string
+    status: string | null
+}
 
 class ProfilePageBase extends Block {
     protected init() {
@@ -45,32 +58,15 @@ class ProfilePageBase extends Block {
             alt: "Назад",
             className: "profile-page__back-link",
             events: {
-                click: (event: PointerEvent) => {
-                    this.props.router.go("/chat")
+                click: () => {
+                    this.props.router.go(Routes.Chat)
                 }
             }
         });
 
         this.children.modal = new Modal({
+            changeAvatar: this.changeAvatar.bind(this),
             show: false,
-            events: {
-                submit: (event: SubmitEvent) => {
-                    console.log("Hello");
-                }
-            }
-        });
-
-        this.children.avatar = new Avatar({
-            img: this.props.avatar,
-            alt: this.props.login,
-            edit: "true",
-            events: {
-                click: (event: PointerEvent) => {
-                    this.children.modal.setProps({
-                        show: true
-                    })
-                }
-            }
         });
 
         this.children.linkChangeData = new Link({
@@ -78,7 +74,7 @@ class ProfilePageBase extends Block {
             className: "link-button",
             events: {
                 click: () => {
-                    this.props.router.go("/profile/change-info")
+                    this.props.router.go(Routes.ProfileChangeInfo)
                 }
             }
         })
@@ -88,7 +84,7 @@ class ProfilePageBase extends Block {
             className: "link-button",
             events: {
                 click: () => {
-                    this.props.router.go("/profile/change-password")
+                    this.props.router.go(Routes.ProfileChangePassword)
                 }
             }
         })
@@ -99,9 +95,30 @@ class ProfilePageBase extends Block {
             events: {
                 click: () => {
                     UserController.logout();
-                    this.props.router.go("/")
+                    this.props.router.go(Routes.Index)
                 }
             }
+        })
+    }
+
+    avatar() {
+        this.children.avatar = new Avatar({
+            img: this.props.avatar,
+            alt: this.props.login,
+            edit: "true",
+            events: {
+                click: () => {
+                    this.children.modal.setProps({
+                        show: true
+                    })
+                }
+            }
+        });
+    }
+
+    changeAvatar(data: Profile) {
+        this.setProps({
+            avatar: data.avatar
         })
     }
 
@@ -110,6 +127,7 @@ class ProfilePageBase extends Block {
     }
 
     protected render(): DocumentFragment {
+        this.avatar();
         return this.compile(template, this.props);
     }
 }

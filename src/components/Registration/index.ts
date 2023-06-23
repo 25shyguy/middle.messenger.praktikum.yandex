@@ -6,6 +6,7 @@ import { Input } from "../../components/Input";
 import { Link } from "../../components/Link";
 import { withRouter } from "../../HOC/withRoutes";
 import UserController from "../../services/userController";
+import { Routes } from "../../utils/Routes";
 
 interface RegistrationContainerProps {
     reason?: null
@@ -265,14 +266,14 @@ class RegistrationContainerBase extends Block {
                         const result = this.children.inputs.reduce((acc = {}, input: Input) => {
                             return { ...acc, [input.getProp("name")]: input.getProp("value") }
                         }, {});
-                        const user = await UserController.register(result);
+                        const user = await UserController.register(result).catch(e => e);
                         if(user?.reason) {
                             this.setProps({
                                 reason: user.reason
                             })
                             return;
                         }
-                        this.props.router.go("/profile");
+                        this.props.router.go(Routes.Chat);
                     }
                 }
             }
@@ -282,8 +283,8 @@ class RegistrationContainerBase extends Block {
             className: "link-button",
             text: "Войти",
             events: {
-                click: (event: PointerEvent) => {
-                    this.props.router.go("/")
+                click: () => {
+                    this.props.router.go(Routes.Index)
                 }
             }
         });

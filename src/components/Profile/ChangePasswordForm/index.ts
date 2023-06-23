@@ -102,7 +102,7 @@ export class ChangePasswordForm extends Block {
                         const { newPassword, oldPassword } = this.children.inputPassword.reduce((acc = {}, input: Input) => {
                             return { ...acc, [input.getProp("name")]: input.getProp("value") }
                         }, {});
-                        const user = await UserController.changePassword({ newPassword, oldPassword });
+                        const user = await UserController.changePassword({ newPassword, oldPassword }).catch(e => e);
 
                         if (user?.reason) {
                             this.setProps({

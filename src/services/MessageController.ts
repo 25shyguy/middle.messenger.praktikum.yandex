@@ -45,16 +45,21 @@ export class MessageController {
     }
 
     onMessage(event: MessageEvent) {
-        const messages = JSON.parse(event.data);
-        if (messages.type === "pong") {
-            return;
+        try {
+            const messages = JSON.parse(event.data);
+            if (messages.type === "pong") {
+                return;
+            }
+            if (Array.isArray(messages)) {
+                return messages.reverse().forEach((message: IMessage) => {
+                    this.createElement(message)
+                });
+            }
+            this.createElement(messages)
+        } catch (error) {
+            return error;
         }
-        if (Array.isArray(messages)) {
-            return messages.reverse().forEach((message: IMessage) => {
-                this.createElement(message)
-            });
-        }
-        this.createElement(messages)
+        
     }
 
     createElement(message: IMessage) {

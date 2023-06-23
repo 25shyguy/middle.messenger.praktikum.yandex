@@ -1,13 +1,10 @@
 import { ChatPage } from "./pages/ChatPage";
-import { ErrorPage } from "./pages/ErrorPage";
 import { LoginPage } from "./pages/LoginPage";
 import { ProfileChangePasswordPage } from "./pages/ProfileChangePasswordPage";
 import { ProfilePageInfo } from "./pages/ProfileInfoPage";
 import { ProfilePage } from "./pages/ProfilePage";
 import { RegistrationPage } from "./pages/RegistrationPage";
 import UserController from "./services/userController";
-import { AppState, defaultState } from "./store";
-import renderDOM from "./utils/renderDOM";
 import Router from "./utils/Router";
 import { Routes } from "./utils/Routes";
 import store, { StoreEvents } from "./utils/Store";
@@ -32,11 +29,15 @@ window.addEventListener("DOMContentLoaded", async () => {
     });
 
     try {
-        const user = await UserController.getUser();
+        const user = await UserController
+            .getUser()
+            .catch((e) => {
+                return e
+            })
 
         Router.start();
 
-        if (user.reason) {
+        if (user?.reason) {
             Router.go(Routes.Index)
         }
     } catch (e) {

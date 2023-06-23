@@ -39,7 +39,8 @@ export class HTTPTransport {
         this.baseURL = `https://ya-praktikum.tech${baseURL}`;
     }
     get: HTTPMethod = (url, options) => {
-        return this.request(url, { ...options, method: METHODS.GET });
+        const data = queryStringify(options)
+        return this.request(url, { data, method: METHODS.GET });
     };
 
     put: HTTPMethod = (url, options) => {
@@ -64,6 +65,10 @@ export class HTTPTransport {
             xhr.onload = function () {
                 resolve(xhr);
             };
+
+            xhr.onerror = () => {
+                reject(xhr);
+            }
 
             xhr.ontimeout = () => reject({ reason: "Timeout" });
 

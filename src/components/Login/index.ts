@@ -6,8 +6,7 @@ import { Input } from "../../components/Input";
 import { Link } from "../../components/Link";
 import UserController from "../../services/userController";
 import { withRouter } from "../../HOC/withRoutes";
-
-// import { login as loginService } from "../../services/auth";
+import { Routes } from "../../utils/Routes";
 
 interface LoginContainerProps {
     reason?: null
@@ -59,14 +58,16 @@ class LoginContainerBase extends Block {
                     event.preventDefault();
                     const login = this.children.loginInput.getProp("value");
                     const password = this.children.passwordInput.getProp("value");
-                    const user = await UserController.setUser({ login, password });
+                    const user = await UserController
+                        .setUser({ login, password })
+                        .catch(e => e);
                     if(user?.reason) {
                         this.setProps({
                             reason: user.reason
                         })
                         return;
                     }
-                    this.props.router.go("/chat");
+                    this.props.router.go(Routes.Chat);
                 }
             }
         });
@@ -76,7 +77,7 @@ class LoginContainerBase extends Block {
             text: "Нет аккаунта?",
             events: {
                 click: () => {
-                    this.props.router.go("/registration")
+                    this.props.router.go(Routes.Registration)
                 }
             }
         });

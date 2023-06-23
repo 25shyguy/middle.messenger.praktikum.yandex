@@ -22,7 +22,7 @@ export class Avatar extends Block {
     }
 
     protected init(): void {
-        userController.getUser();
+        userController.getUser().catch(e => e);
         this.setProps({
             img: this.props.img ? `${avatarURL}${this.props.img}` : noImage,
         })

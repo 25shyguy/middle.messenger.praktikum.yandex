@@ -27,14 +27,24 @@ class ChatPageBase extends Block {
                 this.messageController?.close();
             }
         }
-        const data = await ChatController.getChatToken(chat.id);
-        const { id } = await userController.getUser();
-        this.messageController = new MessageController({
-            chatID: chat.id,
-            userID: id,
-            token: data.token
-        })
-        this.setProps({chat});
+        const data = await ChatController
+            .getChatToken(chat.id)
+            .catch((e) => {
+                return e
+            });
+        const user = await userController
+            .getUser()
+            .catch((e) => {
+                return e
+            });
+        if(data.token || user.id) {
+            this.messageController = new MessageController({
+                chatID: chat.id,
+                userID: user.id,
+                token: data.token
+            })
+            this.setProps({chat});
+        }
     }
 
     setModal(modal: Modal) {
@@ -42,9 +52,12 @@ class ChatPageBase extends Block {
     }
 
     async getChats() {
-        const chats = await ChatController.getChats();
+        const chats = await ChatController
+            .getChats()
+            .catch((e) => {
+                return e
+            });
         if(chats.response?.reason || chats?.status === 500) {
-            console.log(chats.response.reason, chats.status);
             return;
         }
         this.setProps({ chats });
@@ -57,13 +70,17 @@ class ChatPageBase extends Block {
 
 
     async userEvent(login: string) {
-        return await userController.findUser({ login })
+        return await userController
+            .findUser({ login })
+            .catch((e) => {
+                return e
+            })
     }
 
     async deleteChat() {
         const chat = await ChatController.deleteChat({
             chatId: this.props.chat.id
-        })
+        }).catch(e => e) 
         this.messageController?.close();
         this.getChats();
         this.setProps({
@@ -74,11 +91,15 @@ class ChatPageBase extends Block {
     }
 
     async getUsers() {
-        return await ChatController.getChatUsers(this.props.chat.id);
+        return await ChatController
+            .getChatUsers(this.props.chat.id)
+            .catch(e => e);
     }
 
     async createChat(title: string) {
-        const chat = await ChatController.createChat({ title });
+        const chat = await ChatController
+            .createChat({ title })
+            .catch(e => e);
         this.getChats();
         return chat;
     }

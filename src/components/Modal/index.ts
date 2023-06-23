@@ -16,14 +16,15 @@ interface ModalProps {
     events?: {
         submit: (event: FormDataEvent) => void
     }
+    changeAvatar?: (data: any) => void
+
 }
 
 class ModalBase extends Block {
-    constructor({show = false}: ModalProps) {
-        super(show)
+    constructor(props: ModalProps) {
+        super(props)
     }
     protected init(): void {
-
         this.children.closeButton = new Button({
             className: "modal_close-button",
             type: "button",
@@ -50,16 +51,17 @@ class ModalBase extends Block {
             type: "submit",
             text: "Применить",
             events: {
-                click: (event: PointerEvent) => {
+                click: async (event: PointerEvent) => {
                     event.preventDefault();
                     const form = this.getContent()?.getElementsByTagName("form")[0];
-                    this.onSubmit(form as HTMLFormElement);
+                    await this.onSubmit(form as HTMLFormElement);
                 }
             }
         }); 
     }
 
     async onSubmit(form: HTMLFormElement): Promise<void> {
+        console.log(this.props);
         const files = form.avatar.files;
         if (files.length === 0) {
             this.setProps({
@@ -71,8 +73,8 @@ class ModalBase extends Block {
             return;
         }
         const formData = new FormData(form);
-        const data = await userController.changeAvatar(formData);
-
+        const data = await userController.changeAvatar(formData).catch(e => e);
+        this.props.changeAvatar(data);
         if (data.response?.reason || data.status === 500) {
             this.setProps({
                 message: {
@@ -88,6 +90,7 @@ class ModalBase extends Block {
                 value: "Аватар успешно изменен!"
             }
         })
+        return data
     }
 
     protected render(): DocumentFragment {

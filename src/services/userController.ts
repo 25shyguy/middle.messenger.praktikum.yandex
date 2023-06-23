@@ -4,14 +4,14 @@ import store from "../utils/Store";
 
 class UserController {
     public async getUser() {
-        const data = await authAPI.user();
+        const data = await authAPI.user().catch(e => e);
         const { response } = data;
         store.set("user", response);
         return response;
     }
 
     public async register(payload: RegisterPayload) {
-        const data = await authAPI.signup(payload);
+        const data = await authAPI.signup(payload).catch(e => e);
         const { response } = data;
         if(response?.reason) {
             return response
@@ -21,7 +21,7 @@ class UserController {
     }
 
     public async setUser(payload: LoginBody) {
-        const data = await authAPI.login(payload);
+        const data = await authAPI.login(payload).catch(e => e);
         const { response } = data;
         if (response?.reason) {
             return response
@@ -36,14 +36,14 @@ class UserController {
     }
 
     public async changePassword(payload: PasswordBody) {
-        const data = await userAPI.password(payload);
+        const data = await userAPI.password(payload).catch(e => e);
         const { response } = data;
         return response;
 
     }
 
     public async changeProfile(payload: ProfileBody) {
-        const data = await userAPI.profile(payload);
+        const data = await userAPI.profile(payload).catch(e => e);
         const { response } = data;
         if (response?.reason) {
             return response
@@ -53,7 +53,7 @@ class UserController {
     }
 
     public async changeAvatar(payload: FormData) {
-        const data = await userAPI.avatar(payload);
+        const data = await userAPI.avatar(payload).catch(e => e);
         const { response } = data;
         if(response?.reason || data.status > 200) {
             return data
@@ -63,7 +63,7 @@ class UserController {
     }
 
     public async findUser(payload: SearchPayload) {
-        const data = await userAPI.search(payload);
+        const data = await userAPI.search(payload).catch(e => e);
         const { response } = data;
         if (response?.reason || data.status > 200) {
             return data

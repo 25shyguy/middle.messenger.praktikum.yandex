@@ -237,7 +237,7 @@ class ChangeInfoFormBase extends Block {
                         const result = this.children.inputInfo.reduce((acc = {}, input: Input) => {
                             return { ...acc, [input.getProp("name")]: input.getProp("value") }
                         }, {});
-                        const user = await UserController.changeProfile(result);
+                        const user = await UserController.changeProfile(result).catch(e => e);
                         if(user?.reason) {
                             this.setProps({
                                 message: {
