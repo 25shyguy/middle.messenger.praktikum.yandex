@@ -40,70 +40,79 @@
         }
     }
 
-    #modal_form {
-        background-color: #fff;
-        border-radius: 12px;
-        padding: 40px 30px;
-        max-width: 340px;
-        text-align: center;
-        display: flex;
-        flex-flow: column nowrap;
-        margin: 0 auto;
-        position: relative;
-
-        .modal_close-button {
-            background-color: transparent;
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            cursor: pointer;
-
-            img {
-                width: 15px;
-            }
-        }
-
-        h3 {
-            font-size: $text-xl;
-            color: $black;
-            margin-bottom: 45px;
-        }
-
-        .input {
-            color: $dark-blue;
-            font-size: $text-medium;
-            cursor: pointer;
-            margin-bottom: 20px;
-            margin-bottom: 45px;
-
-            .modal_form_input {
-                display: none;
-            }
-        }
-
-        .modal_form {
-            &-message {
-                margin-top: 15px;
-                font-size: $text-small;
-
-                &.success {
-                    color: $green;
-                }
-
-                &.error {
-                    color: $red
-                }
-            }
-        }
-    }
-
-    .modal-form-chat {
+    &-form-chat {
         .input {
             .modal-input {
                 border-bottom: $input-border;
             }
 
             margin-bottom: 5px !important;
+        }
+    }
+
+    #modal {
+        &_form {
+            background-color: #fff;
+            border-radius: 12px;
+            padding: 40px 30px;
+            max-width: 340px;
+            text-align: center;
+            display: flex;
+            flex-flow: column nowrap;
+            margin: 0 auto;
+            position: relative;
+
+            .modal {
+                &_close {
+                    &-button {
+                        background-color: transparent;
+                        position: absolute;
+                        top: 15px;
+                        right: 15px;
+                        cursor: pointer;
+
+                        img {
+                            width: 15px;
+                        }
+                    }
+                }
+
+                &_form {
+                    &-message {
+                        margin-top: 15px;
+                        font-size: $text-small;
+
+                        &.success {
+                            color: $green;
+                        }
+
+                        &.error {
+                            color: $red
+                        }
+                    }
+                }
+            }
+
+            h3 {
+                font-size: $text-xl;
+                color: $black;
+                margin-bottom: 45px;
+            }
+
+            .input {
+                color: $dark-blue;
+                font-size: $text-medium;
+                cursor: pointer;
+                margin-bottom: 20px;
+
+                .modal {
+                    &_form {
+                        &_input {
+                            display: none;
+                        }
+                    }
+                }
+            }
         }
     }
 }
