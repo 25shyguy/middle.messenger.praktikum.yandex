@@ -8,6 +8,7 @@ import UserController from "./services/userController";
 import Router from "./utils/Router";
 import { Routes } from "./utils/Routes";
 import store, { StoreEvents } from "./utils/Store";
+import "./styles/main.scss";
 
 // declare global {
 //     interface Window {
@@ -17,10 +18,10 @@ import store, { StoreEvents } from "./utils/Store";
 
 window.addEventListener("DOMContentLoaded", async () => {
     Router
-        .use(Routes.Index, LoginPage)
-        .use(Routes.Registration, RegistrationPage)
         .use(Routes.Chat, ChatPage)
+        .use(Routes.Index, LoginPage)
         .use(Routes.Proflie, ProfilePage)
+        .use(Routes.Registration, RegistrationPage)
         .use(Routes.ProfileChangeInfo, ProfilePageInfo)
         .use(Routes.ProfileChangePassword, ProfileChangePasswordPage)
 

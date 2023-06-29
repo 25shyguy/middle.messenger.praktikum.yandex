@@ -20,7 +20,7 @@ interface IMessage {
 export class MessageController {
     private socket: WebSocket;
     private userID: number;
-    private messageInterval: number;
+    private messageInterval: ReturnType<typeof setInterval> | undefined;
     constructor({ userID, chatID, token }: MessageControllerProps) {
         this.userID = userID
         this.socket = new WebSocket(`wss://ya-praktikum.tech/ws/chats/${userID}/${chatID}/${token}`);
@@ -30,7 +30,6 @@ export class MessageController {
         this.socket.addEventListener("open", () => this.send);
         this.socket.addEventListener("message", (event) => this.onMessage(event))
         this.socket.addEventListener("close", () => {
-            console.log("WS Closed!")
             clearInterval(this.messageInterval)
         })
 

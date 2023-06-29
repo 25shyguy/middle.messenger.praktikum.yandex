@@ -1,9 +1,9 @@
 {
   "name": "chat",
   "version": "1.0.0",
-  "description": "Sprint 2",
+  "description": "Sprint 4",
   "scripts": {
-    "start": "parcel build src/index.html && node server.js",
+    "start": "webpack serve",
     "dev": "parcel ./src/index.html",
     "build": "parcel build src/index.html",
     "lint": "eslint ./src --fix"
@@ -14,21 +14,31 @@
   "devDependencies": {
     "@anikin/parcel-transformer-handlebars-precompile": "^1.0.1",
     "@parcel/transformer-sass": "^2.8.3",
+    "@types/node": "^20.3.2",
     "@typescript-eslint/eslint-plugin": "^5.59.8",
     "@typescript-eslint/parser": "^5.59.8",
+    "chai": "^4.3.7",
+    "css-loader": "^6.8.1",
     "eslint": "^8.41.0",
     "eslint-plugin-prettier": "^4.2.1",
-    "parcel": "^2.8.3",
-    "parcel-plugin-handlebars": "^0.4.4",
+    "handlebars-loader": "^1.7.3",
+    "html-webpack-plugin": "^5.5.3",
+    "mocha": "^10.2.0",
+    "sass": "^1.63.6",
+    "style-loader": "^3.3.3",
     "stylelint": "^15.6.2",
     "stylelint-config-standard": "^33.0.0",
     "stylelint-config-standard-scss": "^9.0.0",
-    "typescript": "^5.0.4"
+    "ts-loader": "^9.4.4",
+    "typescript": "^5.1.5",
+    "webpack": "^5.88.0",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^4.15.1",
+    "webpack-merge": "^5.9.0"
   },
   "dependencies": {
-    "express": "^4.18.2",
     "handlebars": "^4.7.7",
     "nanoid": "^4.0.2",
-    "sass": "^1.62.1"
+    "sass-loader": "^13.3.2"
   }
 }

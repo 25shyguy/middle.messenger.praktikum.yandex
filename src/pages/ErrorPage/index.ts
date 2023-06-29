@@ -1,5 +1,6 @@
 import { Link } from "../../components/Link";
 import Block from "../../utils/Block";
+import { Routes } from "../../utils/Routes";
 import template from "./error.hbs";
 
 interface ErrorPageProps {
@@ -15,8 +16,12 @@ export class ErrorPage extends Block {
     protected init(): void {
         this.children.link = new Link({
             text: "Назад к чатам",
-            to: "/chat",
-            className: "link-button"
+            className: "link-button",
+            events: {
+                click: () => {
+                    this.props.router.go(Routes.Chat)
+                }
+            }
         })
     }
 
